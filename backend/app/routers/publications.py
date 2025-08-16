@@ -1,13 +1,20 @@
 from typing import List
-from fastapi import APIRouter
+
+from fastapi import APIRouter, Depends
 from sqlmodel import Session, select
-from ..models import Publication
+
 from ..database import engine
+from ..models import Publication
 
 router = APIRouter()
 
-@router.get("/publications", response_model=List[Publication])
-def get_publications():
+
+def get_session():
     with Session(engine) as session:
-        publications = session.exec(select(Publication)).all()
-        return publications
+        yield session
+
+
+@router.get("/publications", response_model=List[Publication])
+def get_all_publications(session: Session = Depends(get_session)):
+    publications = session.exec(select(Publication)).all()
+    return publications

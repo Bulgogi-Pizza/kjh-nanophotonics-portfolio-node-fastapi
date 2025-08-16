@@ -1,5 +1,5 @@
 # 1. 빌드 스테이지
-FROM node:20-alpine AS builder
+FROM node:18-slim AS builder
 WORKDIR /app
 COPY ./frontend/package*.json ./
 RUN npm install

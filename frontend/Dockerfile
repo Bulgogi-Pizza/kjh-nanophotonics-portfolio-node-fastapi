@@ -1,6 +1,6 @@
 # 1. 빌드 스테이지
 FROM node:18-alpine AS builder
-WORKDIR /app
+WORKDIR /usr/src/app
 COPY ./frontend/package*.json ./
 RUN npm install
 COPY ./frontend/ ./

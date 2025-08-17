@@ -3,6 +3,8 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import PublicationsPage from './pages/PublicationsPage';
+import CVPage from './pages/CVPage';
+import AwardsPage from './pages/AwardsPage';
 
 const ThemeContext = createContext();
 
@@ -50,6 +52,8 @@ function App() {
               <Route path="/" element={<Layout/>}>
                 <Route index element={<HomePage/>}/>
                 <Route path="publications" element={<PublicationsPage/>}/>
+                <Route path="cv" element={<CVPage/>}/>
+                <Route path="awards" element={<AwardsPage/>}/>
               </Route>
             </Routes>
           </div>

@@ -1,33 +1,68 @@
+from contextlib import asynccontextmanager
+
+from app import models  # 모든 모델을 import하여 테이블이 생성되도록 함
+# 데이터베이스 및 모델 import
+from app.database import create_db_and_tables, test_db_connection
+# 라우터 import
+from app.routers import publications, education, experience, awards, \
+    conferences, media
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routers import publications  # , cv (나중에 추가)
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """애플리케이션 시작/종료 시 실행될 작업들"""
+    # 시작 시 실행
+    print("🚀 애플리케이션 시작 중...")
 
-origins = [
-    "http://localhost",
-    "http://localhost:5173",  # React 개발 서버 주소
-    "http://joohoonkim.site",
-    "https://joohoonkim.site",
-    "http://joohoonkim.site:5173",
-    "https://joohoonkim.site:5173",
-]
+    # 데이터베이스 연결 테스트
+    if test_db_connection():
+        # 테이블 생성
+        create_db_and_tables()
+        print("📊 데이터베이스 테이블 생성/확인 완료")
 
+    yield  # 애플리케이션 실행
+
+    # 종료 시 실행 (필요한 경우)
+    print("🛑 애플리케이션 종료 중...")
+
+
+# FastAPI 앱 생성
+app = FastAPI(
+    title="JoohoonKim Portfolio API",
+    description="Portfolio API for JoohoonKim's academic website",
+    version="1.0.0",
+    lifespan=lifespan
+)
+
+# CORS 미들웨어 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],  # 프로덕션에서는 구체적인 도메인을 지정하세요
     allow_credentials=True,
-    allow_methods=["*"],  # 모든 HTTP 메소드 허용
-    allow_headers=["*"],  # 모든 HTTP 헤더 허용
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
+# 라우터 등록
+app.include_router(publications.router)
+app.include_router(education.router)
+app.include_router(experience.router)
+app.include_router(awards.router)
+app.include_router(conferences.router)
+app.include_router(media.router)
 
 
 @app.get("/")
 def read_root():
-    return {"message": "Portfolio API is running!"}
+    return {"message": "JoohoonKim Portfolio API is running!"}
 
 
-# /api 라는 접두사와 함께 publications 라우터를 앱에 포함시킵니다.
-# 이제 /api/publications 경로로 요청을 보낼 수 있습니다.
-app.include_router(publications.router, prefix="/api")
+@app.get("/health")
+def health_check():
+    """API 상태 확인 엔드포인트"""
+    return {
+        "status": "healthy",
+        "message": "API is running successfully"
+    }

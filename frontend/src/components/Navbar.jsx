@@ -33,7 +33,7 @@ function Navbar() {
                 to="/"
                 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent hover:from-purple-700 hover:to-indigo-700 transition-all"
             >
-              JoohoonKimasdasd
+              JoohoonKim
             </NavLink>
 
             {/* 데스크탑 메뉴 */}

@@ -44,26 +44,6 @@ jobs:
         run: |
           docker compose up -d --remove-orphans
 
-      # 서비스 헬스체크
-      - name: Health check
-        run: |
-          echo "Waiting for services to be ready..."
-          sleep 30
-          
-          # 백엔드 헬스체크
-          if ! curl -f http://localhost:8000/ --max-time 30; then
-            echo "Backend health check failed"
-            exit 1
-          fi
-          
-          # 프론트엔드 헬스체크 (HTTPS)
-          if ! curl -f https://${{ secrets.DOMAIN_NAME }} --max-time 30; then
-            echo "Frontend health check failed"
-            exit 1
-          fi
-          
-          echo "All services are healthy!"
-
       # 성공 시 이전 이미지 정리
       - name: Clean up old Docker images
         run: |

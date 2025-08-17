@@ -1,44 +1,57 @@
 import React, {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 
 function AwardsSection() {
   const [awards, setAwards] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setAwards([
-      {
-        id: 1,
-        title: "Outstanding Research Achievement Award",
-        organization: "Korean Physical Society",
-        year: "2023",
-        description: "Recognition for groundbreaking contributions to nanophotonics research and innovative optical device development.",
-        image: "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=400&h=250&fit=crop&crop=center"
-      },
-      {
-        id: 2,
-        title: "Young Scientist Excellence Award",
-        organization: "POSTECH",
-        year: "2022",
-        description: "Excellence in engineering applications of advanced photonic materials and quantum optical systems.",
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop&crop=center"
-      },
-      {
-        id: 3,
-        title: "Best Paper Award",
-        organization: "International Conference on Nanophotonics",
-        year: "2022",
-        description: "Outstanding research contribution in metamaterial design for sustainable energy applications.",
-        image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=250&fit=crop&crop=center"
-      },
-      {
-        id: 4,
-        title: "Research Excellence Grant",
-        organization: "National Research Foundation of Korea",
-        year: "2021",
-        description: "Competitive funding awarded for pioneering nanophotonic device development and commercialization.",
-        image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=250&fit=crop&crop=center"
-      }
-    ]);
+    fetch('/api/awards/')
+    .then(res => res.json())
+    .then(data => {
+      // 최신 4개만 가져오기
+      setAwards(data.slice(0, 4));
+      setLoading(false);
+    })
+    .catch(error => {
+      console.error('Error fetching awards:', error);
+      setLoading(false);
+    });
   }, []);
+
+  const getRankInfo = (rank) => {
+    if (rank && (rank.toLowerCase().includes('1st')
+        || rank.toLowerCase().includes('grand'))) {
+      return {
+        icon: '🏆',
+        class: 'bg-gradient-to-r from-yellow-400 to-orange-500 text-white'
+      };
+    } else if (rank && rank.toLowerCase().includes('2nd')) {
+      return {
+        icon: '🥈',
+        class: 'bg-gradient-to-r from-gray-300 to-gray-400 text-white'
+      };
+    }
+    return {
+      icon: '🏅',
+      class: 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white'
+    };
+  };
+
+  if (loading) {
+    return (
+        <section className="py-24 bg-gray-50 dark:bg-gray-800">
+          <div className="container mx-auto px-6 lg:px-8">
+            <div className="text-center">
+              <div
+                  className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
+              <p className="text-gray-600 dark:text-gray-400">Loading
+                awards...</p>
+            </div>
+          </div>
+        </section>
+    );
+  }
 
   return (
       <section className="py-24 bg-gray-50 dark:bg-gray-800">
@@ -46,7 +59,7 @@ function AwardsSection() {
           {/* 섹션 헤더 */}
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Awards & Recognition
+              Recent Awards & Recognition
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
               International recognition and prestigious awards for contributions
@@ -55,48 +68,64 @@ function AwardsSection() {
           </div>
 
           {/* 어워드 그리드 */}
-          <div className="grid md:grid-cols-2 gap-8">
-            {awards.map((award, index) => (
-                <div
-                    key={award.id}
-                    className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:border-purple-200 dark:hover:border-purple-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                >
-                  <div className="md:flex">
-                    {/* 이미지 */}
-                    <div className="md:w-2/5 relative overflow-hidden">
-                      <img
-                          src={award.image}
-                          alt={award.title}
-                          className="w-full h-48 md:h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {awards.map((award, index) => {
+              const rankInfo = getRankInfo(award.rank);
+
+              return (
+                  <div
+                      key={award.id}
+                      className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:border-purple-200 dark:hover:border-purple-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                  >
+                    {/* Award 카드 헤더 */}
+                    <div
+                        className={`${rankInfo.class} p-4 text-center relative overflow-hidden`}>
                       <div
-                          className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-indigo-600/20"></div>
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 group-hover:translate-x-full transition-transform duration-1000"></div>
+                      <div className="text-3xl mb-2">{rankInfo.icon}</div>
+                      <p className="font-bold text-lg">
+                        {award.rank || 'Award'} • {award.year}
+                      </p>
                     </div>
 
-                    {/* 콘텐츠 */}
-                    <div className="md:w-3/5 p-6 flex flex-col justify-center">
-                      <div className="flex items-center justify-between mb-3">
-                    <span
-                        className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm font-semibold">
-                      {award.year}
-                    </span>
-                      </div>
-
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                    {/* Award 카드 바디 */}
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                         {award.title}
                       </h3>
 
-                      <p className="text-purple-600 dark:text-purple-400 font-semibold mb-3">
+                      <p className="text-purple-600 dark:text-purple-400 font-semibold mb-2">
                         {award.organization}
                       </p>
 
-                      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                        {award.description}
+                      <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                        {award.location}
                       </p>
+
+                      {award.description && (
+                          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-2">
+                            {award.description}
+                          </p>
+                      )}
                     </div>
                   </div>
-                </div>
-            ))}
+              );
+            })}
+          </div>
+
+          {/* CTA */}
+          <div className="text-center">
+            <Link
+                to="/awards"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
+              View All Awards
+              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor"
+                   viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                      strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </Link>
           </div>
         </div>
       </section>

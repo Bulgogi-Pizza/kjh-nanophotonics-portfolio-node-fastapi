@@ -5,6 +5,8 @@ import HomePage from './pages/HomePage';
 import PublicationsPage from './pages/PublicationsPage';
 import CVPage from './pages/CVPage';
 import AwardsPage from './pages/AwardsPage';
+import ConferencesPage from './pages/ConferencesPage';
+import MediaPage from './pages/MediaPage';
 
 const ThemeContext = createContext();
 
@@ -54,6 +56,8 @@ function App() {
                 <Route path="publications" element={<PublicationsPage/>}/>
                 <Route path="cv" element={<CVPage/>}/>
                 <Route path="awards" element={<AwardsPage/>}/>
+                <Route path="conferences" element={<ConferencesPage/>}/>
+                <Route path="media" element={<MediaPage/>}/>
               </Route>
             </Routes>
           </div>

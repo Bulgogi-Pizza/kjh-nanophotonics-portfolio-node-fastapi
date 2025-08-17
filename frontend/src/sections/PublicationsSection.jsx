@@ -4,68 +4,25 @@ import {Link} from 'react-router-dom';
 function PublicationsSection() {
   const [publications, setPublications] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState({});
 
   useEffect(() => {
-    // API 호출 시뮬레이션
-    setTimeout(() => {
-      setPublications([
-        {
-          id: 1,
-          title: "Enhanced Light-Matter Interactions in Nanophotonic Structures for Solar Energy Applications",
-          authors: "J. Kim, S. Lee, H. Park, M. Choi",
-          journal: "Nature Photonics",
-          year: "2023",
-          doi: "10.1038/s41566-023-01234-5",
-          impact: "High Impact"
-        },
-        {
-          id: 2,
-          title: "Novel Quantum Dot Engineering Approaches for Next-Generation Display Technologies",
-          authors: "J. Kim, D. Kim, Y. Shin",
-          journal: "Science",
-          year: "2023",
-          doi: "10.1126/science.abcd1234",
-          impact: "High Impact"
-        },
-        {
-          id: 3,
-          title: "Metamaterial-Based Optical Devices for Efficient Energy Harvesting Systems",
-          authors: "J. Kim, J. Lee, K. Park",
-          journal: "Advanced Materials",
-          year: "2023",
-          doi: "10.1002/adma.202301234",
-          impact: "High Impact"
-        },
-        {
-          id: 4,
-          title: "Theoretical Framework for Optimizing Plasmonic Nanostructures in Biosensing",
-          authors: "J. Kim, R. Smith, L. Chen",
-          journal: "ACS Nano",
-          year: "2022",
-          doi: "10.1021/acsnano.2c01234",
-          impact: "Medium Impact"
-        },
-        {
-          id: 5,
-          title: "Photonic Crystal Design for Enhanced Light Trapping in Thin-Film Solar Cells",
-          authors: "J. Kim, T. Wang, S. Kumar",
-          journal: "Optics Express",
-          year: "2022",
-          doi: "10.1364/OE.451234",
-          impact: "Medium Impact"
-        },
-        {
-          id: 6,
-          title: "Machine Learning Approaches to Nanophotonic Device Optimization",
-          authors: "J. Kim, A. Johnson, P. Martinez",
-          journal: "Nature Communications",
-          year: "2022",
-          doi: "10.1038/s41467-022-01234-5",
-          impact: "High Impact"
-        }
-      ]);
+    Promise.all([
+      fetch('/api/publications/'),
+      fetch('/api/publications/stats')
+    ])
+    .then(([pubRes, statsRes]) => Promise.all(
+        [pubRes.json(), statsRes.json()])) // 괄호 추가
+    .then(([pubData, statsData]) => {
+      // 최신 3개만 가져오기
+      setPublications(pubData.slice(0, 3));
+      setStats(statsData);
       setLoading(false);
-    }, 1000);
+    })
+    .catch(error => {
+      console.error('Error fetching publications:', error);
+      setLoading(false);
+    });
   }, []);
 
   if (loading) {
@@ -74,7 +31,7 @@ function PublicationsSection() {
           <div className="container mx-auto px-6 lg:px-8">
             <div className="text-center">
               <div
-                  className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                  className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
               <p className="text-gray-600 dark:text-gray-400">Loading
                 publications...</p>
             </div>
@@ -91,10 +48,26 @@ function PublicationsSection() {
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
               Latest Publications
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Cutting-edge research contributions in nanophotonics, published in
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-6">
+              Recent breakthrough research in nanophotonics, published in
               top-tier international journals.
             </p>
+
+            {/* 통계 정보 */}
+            <div
+                className="flex justify-center space-x-8 text-sm text-gray-600 dark:text-gray-400">
+              <div><span className="font-semibold text-purple-600">{stats.total
+                  || 0}</span> Total Papers
+              </div>
+              <div><span
+                  className="font-semibold text-purple-600">{stats.first_author
+                  || 0}</span> First Author
+              </div>
+              <div><span
+                  className="font-semibold text-purple-600">{stats.corresponding
+                  || 0}</span> Corresponding
+              </div>
+            </div>
           </div>
 
           {/* 출판물 그리드 */}
@@ -104,20 +77,18 @@ function PublicationsSection() {
                     key={pub.id}
                     className="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 hover:border-purple-200 dark:hover:border-purple-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  {/* 임팩트 배지 */}
+                  {/* 논문 번호 및 기여도 */}
                   <div className="flex justify-between items-start mb-4">
                 <span
-                    className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        pub.impact === 'High Impact'
-                            ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                            : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
-                    }`}>
-                  {pub.impact}
+                    className="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-3 py-1 rounded-full text-xs font-bold">
+                  #{pub.number}
                 </span>
-                    <span
-                        className="text-sm text-gray-500 dark:text-gray-400 font-medium">
-                  {pub.year}
-                </span>
+                    {pub.is_first_author && (
+                        <span
+                            className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 px-2 py-1 rounded-full text-xs font-semibold">
+                    First Author
+                  </span>
+                    )}
                   </div>
 
                   {/* 제목 */}
@@ -125,37 +96,51 @@ function PublicationsSection() {
                     {pub.title}
                   </h3>
 
-                  {/* 저자 */}
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                  {/* 저자 및 저널 */}
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-1">
                     {pub.authors}
                   </p>
-
-                  {/* 저널 */}
-                  <p className="text-sm font-medium text-purple-600 dark:text-purple-400 mb-4">
-                    {pub.journal}
+                  <p className="text-sm font-medium text-purple-600 dark:text-purple-400 mb-3">
+                    {pub.journal} ({pub.year})
                   </p>
 
+                  {/* 특별 정보 */}
+                  {pub.featured_info && (
+                      <p className="text-xs text-indigo-600 dark:text-indigo-400 font-medium mb-3">
+                        🌟 {pub.featured_info}
+                      </p>
+                  )}
+
                   {/* DOI 링크 */}
-                  <a
-                      href={`https://doi.org/${pub.doi}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium text-sm group/link"
-                  >
-                    <svg className="w-4 h-4 mr-2" fill="none"
-                         stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                    </svg>
-                    View Publication
-                    <svg
-                        className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round"
-                            strokeWidth={2} d="M9 5l7 7-7 7"/>
-                    </svg>
-                  </a>
+                  <div
+                      className="pt-4 border-t border-gray-100 dark:border-gray-700">
+                    {pub.doi ? (
+                        <a
+                            href={`https://doi.org/${pub.doi}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium text-sm group/link"
+                        >
+                          <svg className="w-4 h-4 mr-2" fill="none"
+                               stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                          </svg>
+                          View Publication
+                          <svg
+                              className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform"
+                              fill="none" stroke="currentColor"
+                              viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round"
+                                  strokeWidth={2} d="M9 5l7 7-7 7"/>
+                          </svg>
+                        </a>
+                    ) : (
+                        <span
+                            className="text-gray-400 text-sm">Coming Soon</span>
+                    )}
+                  </div>
                 </article>
             ))}
           </div>

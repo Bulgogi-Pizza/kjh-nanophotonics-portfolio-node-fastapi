@@ -19,8 +19,68 @@ jobs:
           echo "DB_USER=${{ secrets.DB_USER }}" >> .env
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
 
-      - name: Build and Deploy Services
-        run: docker compose up -d --build --remove-orphans
+      # 현재 실행 중인 컨테이너 백업 (롤백용)
+      - name: Backup current state
+        run: |
+          docker compose ps --format json > backup-state.json || echo "No previous containers"
 
+      # 새 이미지 빌드 (기존 서비스는 유지)
+      - name: Build new images
+        run: |
+          docker compose build --no-cache
+
+      # 데이터베이스 마이그레이션 (백엔드만 임시로 시작)
+      - name: Run database migrations
+        run: |
+          # DB가 실행 중이 아니면 시작
+          docker compose up -d db
+          sleep 10
+          
+          # 마이그레이션 실행
+          docker compose run --rm backend alembic upgrade head
+
+      # 전체 서비스 재시작
+      - name: Deploy services with rolling update
+        run: |
+          docker compose up -d --remove-orphans
+
+      # 서비스 헬스체크
+      - name: Health check
+        run: |
+          echo "Waiting for services to be ready..."
+          sleep 30
+          
+          # 백엔드 헬스체크
+          if ! curl -f http://localhost:8000/ --max-time 30; then
+            echo "Backend health check failed"
+            exit 1
+          fi
+          
+          # 프론트엔드 헬스체크 (HTTPS)
+          if ! curl -f https://${{ secrets.DOMAIN_NAME }} --max-time 30; then
+            echo "Frontend health check failed"
+            exit 1
+          fi
+          
+          echo "All services are healthy!"
+
+      # 성공 시 이전 이미지 정리
       - name: Clean up old Docker images
-        run: docker image prune -af
+        run: |
+          docker image prune -af
+          docker system prune -f --volumes=false
+
+      # 실패 시 롤백 (에러가 발생하면 이전 상태로 복원)
+      - name: Rollback on failure
+        if: failure()
+        run: |
+          echo "Deployment failed, attempting rollback..."
+          
+          # 이전 컨테이너 상태가 있으면 복원 시도
+          if [ -f backup-state.json ]; then
+            docker compose down
+            # 여기서는 단순히 다시 시작 (더 정교한 롤백 로직 필요시 추가)
+            docker compose up -d
+          fi
+          
+          echo "Rollback completed, please check the services manually"

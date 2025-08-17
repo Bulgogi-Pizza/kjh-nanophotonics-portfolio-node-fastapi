@@ -1,15 +1,19 @@
 import React from 'react';
-import PublicationsSection from "../sections/PublicationsSection.jsx";
-import HeroSection from "../sections/HeroSection.jsx";
+import HeroSection from '../sections/HeroSection';
+import PublicationsSection from '../sections/PublicationsSection';
+import AwardsSection from '../sections/AwardsSection';
+import ConferencesSection from '../sections/ConferencesSection';
+import MediaSection from '../sections/MediaSection';
 
 function HomePage() {
   return (
-      <>
+      <div>
         <HeroSection/>
-        {/* <ResearchSection /> */}
         <PublicationsSection/>
-        {/* <MediaSection /> */}
-      </>
+        <AwardsSection/>
+        <ConferencesSection/>
+        <MediaSection/>
+      </div>
   );
 }
 

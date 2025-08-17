@@ -1,42 +1,27 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
+// 1. react-icons 라이브러리에서 아이콘을 가져옵니다. (https://react-icons.github.io/react-icons/)
+import {FaAtom, FaFlask, FaHeartbeat, FaMicrochip} from 'react-icons/fa';
+
+const researchTopics = [
+  {name: 'Nanoparticle Synthesis', icon: <FaFlask size={40}/>},
+  {name: 'Biomedical Applications', icon: <FaHeartbeat size={40}/>},
+  {name: 'Energy & Catalyst Applications', icon: <FaAtom size={40}/>},
+  {name: 'Soft Electronics Applications', icon: <FaMicrochip size={40}/>},
+];
 
 function ResearchSection() {
-  const [researches, setResearches] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('/api/researches')
-    .then((res) => res.json())
-    .then((data) => {
-      setResearches(data);
-      setLoading(false);
-    });
-  }, []);
-
-  if (loading) {
-    return <p>Loading Researches...</p>;
-  }
-
   return (
-      <div id="researches" className="py-24 sm:py-32 bg-white">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Researches</h2>
-            <p className="mt-2 text-lg leading-8 text-gray-600">
-              My recent researches.
-            </p>
-          </div>
+      <div id="research" className="py-24 bg-blue-50">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Research</h2>
           <div
-              className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-            {researches.slice(0, 3).map((research) => ( // 예시로 3개만 보여주기
-                <article key={research.id}
-                         className="flex max-w-xl flex-col items-start justify-between">
-                  <div className="group relative">
-                    <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                      {research.title}
-                    </h3>
-                  </div>
-                </article>
+              className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {researchTopics.map((topic) => (
+                <div key={topic.name}
+                     className="bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-lg flex flex-col items-center hover:shadow-2xl transition-shadow duration-300">
+                  <div className="text-blue-600 mb-4">{topic.icon}</div>
+                  <h3 className="text-lg font-semibold text-gray-800">{topic.name}</h3>
+                </div>
             ))}
           </div>
         </div>

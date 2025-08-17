@@ -31,7 +31,7 @@ function PublicationsSection() {
           <div className="container mx-auto px-6 lg:px-8">
             <div className="text-center">
               <div
-                  className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                  className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
               <p className="text-gray-600 dark:text-gray-400">Loading
                 publications...</p>
             </div>
@@ -56,15 +56,15 @@ function PublicationsSection() {
             {/* 통계 정보 */}
             <div
                 className="flex justify-center space-x-8 text-sm text-gray-600 dark:text-gray-400">
-              <div><span className="font-semibold text-purple-600">{stats.total
+              <div><span className="font-semibold text-blue-600">{stats.total
                   || 0}</span> Total Papers
               </div>
               <div><span
-                  className="font-semibold text-purple-600">{stats.first_author
+                  className="font-semibold text-blue-600">{stats.first_author
                   || 0}</span> First Author
               </div>
               <div><span
-                  className="font-semibold text-purple-600">{stats.corresponding
+                  className="font-semibold text-blue-600">{stats.corresponding
                   || 0}</span> Corresponding
               </div>
             </div>
@@ -75,12 +75,12 @@ function PublicationsSection() {
             {publications.map((pub, index) => (
                 <article
                     key={pub.id}
-                    className="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 hover:border-purple-200 dark:hover:border-purple-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                    className="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {/* 논문 번호 및 기여도 */}
                   <div className="flex justify-between items-start mb-4">
                 <span
-                    className="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-3 py-1 rounded-full text-xs font-bold">
+                    className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-bold">
                   #{pub.number}
                 </span>
                     {pub.is_first_author && (
@@ -92,7 +92,7 @@ function PublicationsSection() {
                   </div>
 
                   {/* 제목 */}
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     {pub.title}
                   </h3>
 
@@ -100,7 +100,7 @@ function PublicationsSection() {
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-1">
                     {pub.authors}
                   </p>
-                  <p className="text-sm font-medium text-purple-600 dark:text-purple-400 mb-3">
+                  <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-3">
                     {pub.journal} ({pub.year})
                   </p>
 
@@ -119,7 +119,7 @@ function PublicationsSection() {
                             href={`https://doi.org/${pub.doi}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium text-sm group/link"
+                            className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm group/link"
                         >
                           <svg className="w-4 h-4 mr-2" fill="none"
                                stroke="currentColor" viewBox="0 0 24 24">
@@ -149,7 +149,7 @@ function PublicationsSection() {
           <div className="text-center">
             <Link
                 to="/publications"
-                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               View All Publications
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor"

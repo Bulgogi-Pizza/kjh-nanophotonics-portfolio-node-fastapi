@@ -34,7 +34,7 @@ function AwardsSection() {
     }
     return {
       icon: '🏅',
-      class: 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white'
+      class: 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white'
     };
   };
 
@@ -44,7 +44,7 @@ function AwardsSection() {
           <div className="container mx-auto px-6 lg:px-8">
             <div className="text-center">
               <div
-                  className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                  className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
               <p className="text-gray-600 dark:text-gray-400">Loading
                 awards...</p>
             </div>
@@ -75,7 +75,7 @@ function AwardsSection() {
               return (
                   <div
                       key={award.id}
-                      className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:border-purple-200 dark:hover:border-purple-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                      className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                   >
                     {/* Award 카드 헤더 */}
                     <div
@@ -90,11 +90,11 @@ function AwardsSection() {
 
                     {/* Award 카드 바디 */}
                     <div className="p-6">
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                         {award.title}
                       </h3>
 
-                      <p className="text-purple-600 dark:text-purple-400 font-semibold mb-2">
+                      <p className="text-blue-600 dark:text-blue-400 font-semibold mb-2">
                         {award.organization}
                       </p>
 
@@ -117,7 +117,7 @@ function AwardsSection() {
           <div className="text-center">
             <Link
                 to="/awards"
-                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               View All Awards
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor"

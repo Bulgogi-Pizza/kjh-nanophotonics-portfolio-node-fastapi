@@ -18,8 +18,8 @@ function Navbar() {
   const getLinkClasses = ({isActive}) => `
     relative px-3 py-2 text-sm font-medium transition-all duration-200 rounded-lg
     ${isActive
-      ? 'text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20'
-      : 'text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20'
+      ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
+      : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20'
   }
   `;
 
@@ -31,7 +31,7 @@ function Navbar() {
             {/* 로고 */}
             <NavLink
                 to="/"
-                className="text-xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent hover:from-purple-700 hover:to-indigo-700 transition-all"
+                className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent hover:from-blue-700 hover:to-indigo-700 transition-all"
             >
               JoohoonKim
             </NavLink>
@@ -112,8 +112,8 @@ function Navbar() {
                           className={({isActive}) => `
                   block px-3 py-2 text-base font-medium rounded-lg transition-colors
                   ${isActive
-                              ? 'text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20'
-                              : 'text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20'
+                              ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
+                              : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20'
                           }
                 `}
                           onClick={() => setIsMobileMenuOpen(false)}

@@ -67,7 +67,7 @@ function MediaPage() {
         icon: '⭐'
       },
       'press-release': {
-        class: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300',
+        class: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
         icon: '📢'
       },
       'research-highlight': {
@@ -97,7 +97,7 @@ function MediaPage() {
           <div className="container mx-auto px-6 py-24">
             <div className="text-center">
               <div
-                  className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                  className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
               <p className="text-gray-600 dark:text-gray-400">Loading media
                 coverage...</p>
             </div>
@@ -135,18 +135,18 @@ function MediaPage() {
             <div
                 className="flex justify-center space-x-8 text-sm text-gray-600 dark:text-gray-400">
               <div><span
-                  className="font-semibold text-purple-600">{mediaItems.length}</span> Total
+                  className="font-semibold text-blue-600">{mediaItems.length}</span> Total
                 Coverage
               </div>
               <div><span
-                  className="font-semibold text-purple-600">{mediaItems.filter(
+                  className="font-semibold text-blue-600">{mediaItems.filter(
                   m => m.category === 'interview').length}</span> Interviews
               </div>
-              <div><span className="font-semibold text-purple-600">{new Set(
+              <div><span className="font-semibold text-blue-600">{new Set(
                   mediaItems.map(m => m.source)).size}</span> Media Outlets
               </div>
               <div><span
-                  className="font-semibold text-purple-600">{years.length}</span> Years
+                  className="font-semibold text-blue-600">{years.length}</span> Years
                 Active
               </div>
             </div>
@@ -160,7 +160,7 @@ function MediaPage() {
                   placeholder="Search media coverage..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               <svg className="absolute left-3 top-2.5 h-5 w-5 text-gray-400"
                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -176,7 +176,7 @@ function MediaPage() {
                   value={filters.year}
                   onChange={(e) => setFilters(
                       {...filters, year: e.target.value})}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">All Years</option>
                 {years.map(year => (
@@ -189,7 +189,7 @@ function MediaPage() {
                   value={filters.category}
                   onChange={(e) => setFilters(
                       {...filters, category: e.target.value})}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">All Categories</option>
                 <option value="news">News</option>
@@ -222,7 +222,7 @@ function MediaPage() {
               return (
                   <article
                       key={item.id}
-                      className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                      className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                   >
                     {/* 이미지 영역 */}
                     <div className="aspect-video overflow-hidden relative">
@@ -234,7 +234,7 @@ function MediaPage() {
                           />
                       ) : (
                           <div
-                              className="w-full h-full bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center">
+                              className="w-full h-full bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center">
                             <div className="text-6xl">{categoryInfo.icon}</div>
                           </div>
                       )}
@@ -254,7 +254,7 @@ function MediaPage() {
                     <div className="p-6">
                       <div className="flex items-center justify-between mb-3">
                     <span
-                        className="text-sm font-semibold text-purple-600 dark:text-purple-400">
+                        className="text-sm font-semibold text-blue-600 dark:text-blue-400">
                       {item.source}
                     </span>
                         <time
@@ -263,7 +263,7 @@ function MediaPage() {
                         </time>
                       </div>
 
-                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                         {item.title}
                       </h3>
 
@@ -280,7 +280,7 @@ function MediaPage() {
                                 href={item.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-semibold text-sm group/link"
+                                className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-sm group/link"
                             >
                               Read Article
                               <svg
@@ -323,7 +323,7 @@ function MediaPage() {
               Featured In
             </h3>
             <div
-                className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-8">
+                className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-8">
               <div
                   className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
                 {Array.from(new Set(mediaItems.map(item => item.source)))
@@ -351,7 +351,7 @@ function MediaPage() {
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">
+                  <div className="text-3xl font-bold text-blue-600 mb-2">
                     {mediaItems.length}
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">

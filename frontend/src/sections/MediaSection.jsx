@@ -34,7 +34,7 @@ function MediaSection() {
         icon: '⭐'
       },
       'press-release': {
-        class: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300',
+        class: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
         icon: '📢'
       }
     };
@@ -56,7 +56,7 @@ function MediaSection() {
           <div className="container mx-auto px-6 lg:px-8">
             <div className="text-center">
               <div
-                  className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                  className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
               <p className="text-gray-600 dark:text-gray-400">Loading media
                 coverage...</p>
             </div>
@@ -87,7 +87,7 @@ function MediaSection() {
               return (
                   <article
                       key={item.id}
-                      className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:border-purple-200 dark:hover:border-purple-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                      className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                   >
                     {/* 이미지 영역 */}
                     <div className="aspect-video overflow-hidden relative">
@@ -99,7 +99,7 @@ function MediaSection() {
                           />
                       ) : (
                           <div
-                              className="w-full h-full bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center">
+                              className="w-full h-full bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center">
                             <div className="text-6xl">{categoryInfo.icon}</div>
                           </div>
                       )}
@@ -119,7 +119,7 @@ function MediaSection() {
                     <div className="p-6">
                       <div className="flex items-center justify-between mb-3">
                     <span
-                        className="text-sm font-semibold text-purple-600 dark:text-purple-400">
+                        className="text-sm font-semibold text-blue-600 dark:text-blue-400">
                       {item.source}
                     </span>
                         <time
@@ -128,7 +128,7 @@ function MediaSection() {
                         </time>
                       </div>
 
-                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                         {item.title}
                       </h3>
 
@@ -144,7 +144,7 @@ function MediaSection() {
                               href={item.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-semibold text-sm group/link"
+                              className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-sm group/link"
                           >
                             Read Article
                             <svg
@@ -170,7 +170,7 @@ function MediaSection() {
           <div className="text-center">
             <Link
                 to="/media"
-                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               View All Media Coverage
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor"

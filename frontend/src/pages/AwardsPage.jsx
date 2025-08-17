@@ -77,8 +77,8 @@ function AwardsPage() {
     }
     return {
       icon: '🏅',
-      class: 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white',
-      textClass: 'text-purple-600 dark:text-purple-400'
+      class: 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white',
+      textClass: 'text-blue-600 dark:text-blue-400'
     };
   };
 
@@ -88,7 +88,7 @@ function AwardsPage() {
           <div className="container mx-auto px-6 py-24">
             <div className="text-center">
               <div
-                  className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                  className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
               <p className="text-gray-600 dark:text-gray-400">Loading
                 awards...</p>
             </div>
@@ -126,7 +126,7 @@ function AwardsPage() {
             <div
                 className="flex justify-center space-x-8 text-sm text-gray-600 dark:text-gray-400">
               <div><span
-                  className="font-semibold text-purple-600">{awards.length}</span> Total
+                  className="font-semibold text-blue-600">{awards.length}</span> Total
                 Awards
               </div>
               <div><span
@@ -135,7 +135,7 @@ function AwardsPage() {
                       'Grand'))).length}</span> First Place
               </div>
               <div><span
-                  className="font-semibold text-purple-600">{years.length}</span> Years
+                  className="font-semibold text-blue-600">{years.length}</span> Years
                 Active
               </div>
             </div>
@@ -152,7 +152,7 @@ function AwardsPage() {
                     placeholder="Search awards..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
                 <svg className="absolute left-3 top-2.5 h-5 w-5 text-gray-400"
                      fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,7 +166,7 @@ function AwardsPage() {
               <select
                   value={filterYear}
                   onChange={(e) => setFilterYear(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">All Years</option>
                 {years.map(year => (
@@ -193,10 +193,10 @@ function AwardsPage() {
                 <div key={year} className="relative">
                   {/* 연도 헤더 */}
                   <div
-                      className="sticky top-20 z-10 bg-white dark:bg-gray-900 py-4 mb-6 border-b-2 border-purple-200 dark:border-purple-800">
+                      className="sticky top-20 z-10 bg-white dark:bg-gray-900 py-4 mb-6 border-b-2 border-blue-200 dark:border-blue-800">
                     <div className="flex items-center justify-center">
                       <div
-                          className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-8 py-3 rounded-full font-bold text-xl shadow-lg">
+                          className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3 rounded-full font-bold text-xl shadow-lg">
                         {year}
                       </div>
                     </div>
@@ -210,7 +210,7 @@ function AwardsPage() {
                       return (
                           <div
                               key={award.id}
-                              className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                              className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                           >
                             {/* Award 카드 헤더 */}
                             <div
@@ -226,7 +226,7 @@ function AwardsPage() {
 
                             {/* Award 카드 바디 */}
                             <div className="p-6">
-                              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                 {award.title}
                               </h3>
 
@@ -241,7 +241,7 @@ function AwardsPage() {
                                           d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h4M9 7h6m-6 4h6m-6 4h6"/>
                                   </svg>
                                   <span
-                                      className="font-medium text-purple-600 dark:text-purple-400">
+                                      className="font-medium text-blue-600 dark:text-blue-400">
                               {award.organization}
                             </span>
                                 </div>
@@ -277,7 +277,7 @@ function AwardsPage() {
                                   ? 'bg-yellow-100 dark:bg-yellow-900/30'
                                   : rankInfo.textClass.includes('gray')
                                       ? 'bg-gray-100 dark:bg-gray-700'
-                                      : 'bg-purple-100 dark:bg-purple-900/30'}`}>
+                                      : 'bg-blue-100 dark:bg-blue-900/30'}`}>
                             Achievement
                           </span>
                                 <div className="text-right">
@@ -307,13 +307,13 @@ function AwardsPage() {
           {/* 하단 통계 */}
           <div className="mt-16 text-center">
             <div
-                className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-8">
+                className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-8">
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                 Awards Summary
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">
+                  <div className="text-3xl font-bold text-blue-600 mb-2">
                     {awards.length}
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">

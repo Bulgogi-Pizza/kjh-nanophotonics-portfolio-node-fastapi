@@ -23,7 +23,7 @@ function ConferencesSection() {
     const lowerType = type.toLowerCase();
     if (lowerType.includes('keynote') || lowerType.includes('plenary')) {
       return {
-        class: 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white',
+        class: 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white',
         icon: '🎤'
       };
     } else if (lowerType.includes('invited')) {
@@ -59,7 +59,7 @@ function ConferencesSection() {
           <div className="container mx-auto px-6 lg:px-8">
             <div className="text-center">
               <div
-                  className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                  className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
               <p className="text-gray-600 dark:text-gray-400">Loading
                 conferences...</p>
             </div>
@@ -90,7 +90,7 @@ function ConferencesSection() {
               return (
                   <div
                       key={conference.id}
-                      className="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 hover:border-purple-200 dark:hover:border-purple-600 hover:shadow-xl transition-all duration-300"
+                      className="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-600 hover:shadow-xl transition-all duration-300"
                   >
                     <div
                         className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
@@ -118,11 +118,11 @@ function ConferencesSection() {
                       </span>
                         </div>
 
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                           {conference.title}
                         </h3>
 
-                        <p className="text-purple-600 dark:text-purple-400 font-semibold mb-2">
+                        <p className="text-blue-600 dark:text-blue-400 font-semibold mb-2">
                           {conference.conference_name}
                         </p>
 
@@ -155,7 +155,7 @@ function ConferencesSection() {
           <div className="text-center">
             <Link
                 to="/conferences"
-                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               View All Conferences
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor"

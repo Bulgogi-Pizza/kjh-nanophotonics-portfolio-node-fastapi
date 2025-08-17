@@ -83,7 +83,7 @@ function PublicationsPage() {
 
   const getContributionBadge = (pub) => {
     if (pub.is_first_author) {
-      return 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300';
+      return 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300';
     } else if (pub.is_corresponding_author) {
       return 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300';
     } else if (pub.is_equal_contribution) {
@@ -109,7 +109,7 @@ function PublicationsPage() {
           <div className="container mx-auto px-6 py-24">
             <div className="text-center">
               <div
-                  className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                  className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
               <p className="text-gray-600 dark:text-gray-400">Loading
                 publications...</p>
             </div>
@@ -135,18 +135,18 @@ function PublicationsPage() {
             <div
                 className="flex justify-center space-x-8 text-sm text-gray-600 dark:text-gray-400">
               <div><span
-                  className="font-semibold text-purple-600">{stats.total}</span> Total
+                  className="font-semibold text-blue-600">{stats.total}</span> Total
                 Papers
               </div>
               <div><span
-                  className="font-semibold text-purple-600">{stats.first_author}</span> First
+                  className="font-semibold text-blue-600">{stats.first_author}</span> First
                 Author
               </div>
               <div><span
-                  className="font-semibold text-purple-600">{stats.corresponding}</span> Corresponding
+                  className="font-semibold text-blue-600">{stats.corresponding}</span> Corresponding
               </div>
               <div><span
-                  className="font-semibold text-purple-600">{stats.under_submission}</span> Under
+                  className="font-semibold text-blue-600">{stats.under_submission}</span> Under
                 Review
               </div>
             </div>
@@ -161,7 +161,7 @@ function PublicationsPage() {
                   placeholder="Search publications..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               <svg className="absolute left-3 top-2.5 h-5 w-5 text-gray-400"
                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -178,7 +178,7 @@ function PublicationsPage() {
                   value={filters.year}
                   onChange={(e) => setFilters(
                       {...filters, year: e.target.value})}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">All Years</option>
                 {availableYears.map(year => (
@@ -191,7 +191,7 @@ function PublicationsPage() {
                   value={filters.contribution}
                   onChange={(e) => setFilters(
                       {...filters, contribution: e.target.value})}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
               >
                 {contributionOptions.map(option => (
                     <option key={option.value}
@@ -204,7 +204,7 @@ function PublicationsPage() {
                   value={filters.status}
                   onChange={(e) => setFilters(
                       {...filters, status: e.target.value})}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
               >
                 {statusOptions.map(option => (
                     <option key={option.value}
@@ -230,7 +230,7 @@ function PublicationsPage() {
             {filteredPublications.map((pub) => (
                 <article
                     key={pub.id}
-                    className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-600 hover:shadow-lg transition-all duration-300"
+                    className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg transition-all duration-300"
                 >
                   <div
                       className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
@@ -238,7 +238,7 @@ function PublicationsPage() {
                       <div className="flex items-center gap-3 mb-3 flex-wrap">
                         {/* 논문 번호 */}
                         <span
-                            className="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-3 py-1 rounded-full text-sm font-bold">
+                            className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-sm font-bold">
                       #{pub.number}
                     </span>
 
@@ -265,7 +265,7 @@ function PublicationsPage() {
                     </span>
                       </div>
 
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 hover:text-purple-600 dark:hover:text-purple-400 transition-colors leading-tight">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors leading-tight">
                         {pub.title}
                       </h3>
 
@@ -276,7 +276,7 @@ function PublicationsPage() {
 
                       <div
                           className="flex flex-wrap items-center gap-4 text-sm mb-3">
-                        <p className="text-purple-600 dark:text-purple-400 font-semibold">
+                        <p className="text-blue-600 dark:text-blue-400 font-semibold">
                           {pub.journal}
                         </p>
                         {pub.volume && (
@@ -305,7 +305,7 @@ function PublicationsPage() {
                                 href={`https://doi.org/${pub.doi}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium text-sm"
+                                className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm"
                             >
                               <svg className="w-4 h-4 mr-2" fill="none"
                                    stroke="currentColor" viewBox="0 0 24 24">

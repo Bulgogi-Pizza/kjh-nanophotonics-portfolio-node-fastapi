@@ -71,7 +71,7 @@ function ConferencesPage() {
     const lowerType = type.toLowerCase();
     if (lowerType.includes('keynote') || lowerType.includes('plenary')) {
       return {
-        class: 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white',
+        class: 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white',
         icon: '🎤',
         priority: 1
       };
@@ -118,7 +118,7 @@ function ConferencesPage() {
           <div className="container mx-auto px-6 py-24">
             <div className="text-center">
               <div
-                  className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                  className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
               <p className="text-gray-600 dark:text-gray-400">Loading
                 conferences...</p>
             </div>
@@ -156,21 +156,21 @@ function ConferencesPage() {
             <div
                 className="flex justify-center space-x-8 text-sm text-gray-600 dark:text-gray-400">
               <div><span
-                  className="font-semibold text-purple-600">{conferences.length}</span> Total
+                  className="font-semibold text-blue-600">{conferences.length}</span> Total
                 Presentations
               </div>
               <div><span
-                  className="font-semibold text-purple-600">{conferences.filter(
+                  className="font-semibold text-blue-600">{conferences.filter(
                   c => c.presentation_type.toLowerCase().includes('keynote')
                       || c.presentation_type.toLowerCase().includes(
                           'plenary')).length}</span> Keynote/Plenary
               </div>
               <div><span
-                  className="font-semibold text-purple-600">{conferences.filter(
+                  className="font-semibold text-blue-600">{conferences.filter(
                   c => c.award).length}</span> Award Winning
               </div>
               <div><span
-                  className="font-semibold text-purple-600">{years.length}</span> Years
+                  className="font-semibold text-blue-600">{years.length}</span> Years
                 Active
               </div>
             </div>
@@ -184,7 +184,7 @@ function ConferencesPage() {
                   placeholder="Search conferences..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               <svg className="absolute left-3 top-2.5 h-5 w-5 text-gray-400"
                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -200,7 +200,7 @@ function ConferencesPage() {
                   value={filters.year}
                   onChange={(e) => setFilters(
                       {...filters, year: e.target.value})}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">All Years</option>
                 {years.map(year => (
@@ -213,7 +213,7 @@ function ConferencesPage() {
                   value={filters.type}
                   onChange={(e) => setFilters(
                       {...filters, type: e.target.value})}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">All Types</option>
                 <option value="keynote">Keynote</option>
@@ -228,7 +228,7 @@ function ConferencesPage() {
                   value={filters.award}
                   onChange={(e) => setFilters(
                       {...filters, award: e.target.value})}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">All Presentations</option>
                 <option value="award">Award Winners Only</option>
@@ -253,10 +253,10 @@ function ConferencesPage() {
                 <div key={year} className="relative">
                   {/* 연도 헤더 */}
                   <div
-                      className="sticky top-20 z-10 bg-white dark:bg-gray-900 py-4 mb-6 border-b-2 border-purple-200 dark:border-purple-800">
+                      className="sticky top-20 z-10 bg-white dark:bg-gray-900 py-4 mb-6 border-b-2 border-blue-200 dark:border-blue-800">
                     <div className="flex items-center justify-center">
                       <div
-                          className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-8 py-3 rounded-full font-bold text-xl shadow-lg">
+                          className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3 rounded-full font-bold text-xl shadow-lg">
                         {year}
                       </div>
                     </div>
@@ -273,7 +273,7 @@ function ConferencesPage() {
                       return (
                           <div
                               key={conf.id}
-                              className="group bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                              className="group bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                           >
                             <div
                                 className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
@@ -302,11 +302,11 @@ function ConferencesPage() {
                             </span>
                                 </div>
 
-                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors leading-tight">
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-tight">
                                   {conf.title}
                                 </h3>
 
-                                <p className="text-purple-600 dark:text-purple-400 font-semibold text-lg mb-2">
+                                <p className="text-blue-600 dark:text-blue-400 font-semibold text-lg mb-2">
                                   {conf.conference_name}
                                 </p>
 
@@ -343,7 +343,7 @@ function ConferencesPage() {
                                   )}
                                 </div>
                                 <button
-                                    className="inline-flex items-center px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-200 dark:hover:bg-purple-800/30 transition-colors text-sm font-medium">
+                                    className="inline-flex items-center px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-800/30 transition-colors text-sm font-medium">
                                   <svg className="w-4 h-4 mr-2" fill="none"
                                        stroke="currentColor"
                                        viewBox="0 0 24 24">
@@ -379,13 +379,13 @@ function ConferencesPage() {
           {/* 하단 통계 요약 */}
           <div className="mt-16 text-center">
             <div
-                className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-8">
+                className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-8">
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                 Conference Summary
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">
+                  <div className="text-3xl font-bold text-blue-600 mb-2">
                     {conferences.length}
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">

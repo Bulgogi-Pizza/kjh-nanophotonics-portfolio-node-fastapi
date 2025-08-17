@@ -80,7 +80,7 @@ function CVPage() {
           <div className="container mx-auto px-6 py-24">
             <div className="text-center">
               <div
-                  className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                  className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
               <p className="text-gray-600 dark:text-gray-400">Loading CV...</p>
             </div>
           </div>
@@ -122,7 +122,7 @@ function CVPage() {
               <section>
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
                   <div
-                      className="w-10 h-10 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg flex items-center justify-center mr-4">
+                      className="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center mr-4">
                     <svg className="w-6 h-6 text-white" fill="none"
                          stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round"
@@ -135,11 +135,11 @@ function CVPage() {
                 <div className="space-y-6">
                   {education.map((edu, index) => (
                       <div key={edu.id || index}
-                           className="relative bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-300">
+                           className="relative bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300">
                         {/* 연결선 (마지막 아이템 제외) */}
                         {index < education.length - 1 && (
                             <div
-                                className="absolute left-8 top-full w-0.5 h-6 bg-gradient-to-b from-purple-600 to-indigo-600"></div>
+                                className="absolute left-8 top-full w-0.5 h-6 bg-gradient-to-b from-blue-600 to-indigo-600"></div>
                         )}
 
                         <div className="flex justify-between items-start mb-4">
@@ -147,7 +147,7 @@ function CVPage() {
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                               {edu.degree}
                             </h3>
-                            <p className="text-purple-600 dark:text-purple-400 font-semibold text-lg mb-1">
+                            <p className="text-blue-600 dark:text-blue-400 font-semibold text-lg mb-1">
                               {edu.institution}
                             </p>
                             <p className="text-gray-500 dark:text-gray-400 mb-2">
@@ -167,7 +167,7 @@ function CVPage() {
                           </div>
                           <div className="ml-4">
                         <span
-                            className="inline-block bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap">
+                            className="inline-block bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap">
                           {edu.start_year} - {edu.end_year}
                         </span>
                           </div>
@@ -181,7 +181,7 @@ function CVPage() {
               <section>
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
                   <div
-                      className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center mr-4">
+                      className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-lg flex items-center justify-center mr-4">
                     <svg className="w-6 h-6 text-white" fill="none"
                          stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round"
@@ -194,11 +194,11 @@ function CVPage() {
                 <div className="space-y-6">
                   {experience.map((exp, index) => (
                       <div key={exp.id || index}
-                           className="relative bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-300">
+                           className="relative bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300">
                         {/* 연결선 (마지막 아이템 제외) */}
                         {index < experience.length - 1 && (
                             <div
-                                className="absolute left-8 top-full w-0.5 h-6 bg-gradient-to-b from-indigo-600 to-purple-600"></div>
+                                className="absolute left-8 top-full w-0.5 h-6 bg-gradient-to-b from-indigo-600 to-blue-600"></div>
                         )}
 
                         <div className="flex justify-between items-start mb-4">
@@ -242,9 +242,9 @@ function CVPage() {
 
               {/* Skills & Expertise */}
               <div
-                  className="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-6">
+                  className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-6">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-                  <svg className="w-6 h-6 mr-3 text-purple-600" fill="none"
+                  <svg className="w-6 h-6 mr-3 text-blue-600" fill="none"
                        stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round"
                           strokeWidth={2}
@@ -262,7 +262,7 @@ function CVPage() {
                           {skillGroup.items.map((skill, skillIndex) => (
                               <span
                                   key={skillIndex}
-                                  className="px-3 py-1.5 bg-white dark:bg-gray-800 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-600 rounded-full text-sm font-medium hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors"
+                                  className="px-3 py-1.5 bg-white dark:bg-gray-800 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-600 rounded-full text-sm font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
                               >
                           {skill}
                         </span>
@@ -310,7 +310,7 @@ function CVPage() {
                 <button
                     onClick={() => window.open('/cv/JoohoonKim_CV.pdf',
                         '_blank')}
-                    className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-4 px-6 rounded-xl hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center"
+                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-4 px-6 rounded-xl hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center"
                 >
                   <svg className="w-5 h-5 mr-2" fill="none"
                        stroke="currentColor" viewBox="0 0 24 24">
@@ -324,7 +324,7 @@ function CVPage() {
 
               {/* Contact Info */}
               <div
-                  className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-6">
+                  className="bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                   Quick Contact
                 </h3>

@@ -56,7 +56,7 @@ app.include_router(media.router)
 app.include_router(representative_works.router)
 
 # 정적 파일 서빙
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="../static"), name="static")
 
 
 @app.get("/")

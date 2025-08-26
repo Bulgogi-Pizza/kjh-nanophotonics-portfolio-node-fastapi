@@ -15,7 +15,7 @@ function Layout() {
             className="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
           <div className="container mx-auto px-6 lg:px-8 py-8">
             <div className="text-center text-gray-600 dark:text-gray-400">
-              <p>&copy; 2025 JoohoonKim. All rights reserved.</p>
+              <p>&copy; 2025 Joohoon Kim. All rights reserved.</p>
             </div>
           </div>
         </footer>

@@ -192,7 +192,8 @@ function HeroSection() {
                         <div className="flex items-center justify-between">
                           <span className="text-sm font-semibold text-blue-200">
                             <span
-                                className="font-bold italic">{currentWork.journal}, </span>{' '}
+                                className="font-bold italic">{currentWork.journal}, </span>
+                            {currentWork.volume}
                             {currentWork.is_in_revision ? (
                                 <span
                                 >In Revision</span>

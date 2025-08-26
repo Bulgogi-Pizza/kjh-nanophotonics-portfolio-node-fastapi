@@ -114,6 +114,7 @@ class RepresentativeWork(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     title: str
     journal: str
+    volume: Optional[str] = None
     is_in_revision: bool = Field(default=False)
     pages: Optional[str] = None  # 예: "474-481"
     year: Optional[str] = None  # 예: "2023"

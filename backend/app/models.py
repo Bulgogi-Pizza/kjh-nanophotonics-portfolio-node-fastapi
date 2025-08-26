@@ -136,3 +136,17 @@ class GalleryImage(SQLModel, table=True):
     order_index: int = Field(default=0)
     is_active: bool = Field(default=True)
     created_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+class ResearchArea(SQLModel, table=True):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    id: Optional[int] = Field(default=None, primary_key=True)
+    title: str
+    slug: str = Field(unique=True)  # URL용 (design, manufacturing, applications)
+    description: str
+    icon_path: Optional[str] = None
+    order_index: int = Field(default=0)
+    is_active: bool = Field(default=True)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)

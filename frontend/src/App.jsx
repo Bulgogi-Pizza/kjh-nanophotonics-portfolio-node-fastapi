@@ -8,6 +8,7 @@ import AwardsPage from './pages/AwardsPage';
 import ConferencesPage from './pages/ConferencesPage';
 import MediaPage from './pages/MediaPage';
 import AdminPage from "./pages/AdminPage.jsx";
+import ResearchPage from "./pages/ResearchPage.jsx";
 
 const ThemeContext = createContext();
 
@@ -54,6 +55,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Layout/>}>
                 <Route index element={<HomePage/>}/>
+                <Route path="research" element={<ResearchPage/>}/>
+                <Route path="research/:slug" element={<ResearchPage/>}/>
                 <Route path="publications" element={<PublicationsPage/>}/>
                 <Route path="cv" element={<CVPage/>}/>
                 <Route path="awards" element={<AwardsPage/>}/>

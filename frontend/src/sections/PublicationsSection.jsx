@@ -118,7 +118,10 @@ function PublicationsSection() {
                     {/* 저널과 연도 */}
                     <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-2">
                       <span
-                          className="font-bold italic">{pub.journal} {pub.volume}</span>, {pub.pages} ({pub.year})
+                          className="font-bold italic">{pub.journal} </span>
+                      <span
+                          className="font-bold">{pub.volume}</span>
+                      , {pub.pages} ({pub.year})
                     </p>
 
 

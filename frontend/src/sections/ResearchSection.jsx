@@ -1,5 +1,4 @@
 import React from 'react';
-// 1. react-icons 라이브러리에서 아이콘을 가져옵니다. (https://react-icons.github.io/react-icons/)
 import {FaAtom, FaFlask, FaHeartbeat, FaMicrochip} from 'react-icons/fa';
 
 const researchTopics = [

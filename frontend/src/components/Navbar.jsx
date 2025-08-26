@@ -8,11 +8,11 @@ function Navbar() {
 
   const menuItems = [
     {name: 'Home', to: '/'},
-    {name: 'Publications', to: '/publications'},
+    {name: 'Research', to: '/research'},
     {name: 'CV', to: '/cv'},
+    {name: 'Publications', to: '/publications'},
     {name: 'Awards', to: '/awards'},
     {name: 'Conferences', to: '/conferences'},
-    {name: 'Media', to: '/media'},
   ];
 
   const getLinkClasses = ({isActive}) => `
@@ -33,7 +33,7 @@ function Navbar() {
                 to="/"
                 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent hover:from-blue-700 hover:to-indigo-700 transition-all"
             >
-              JoohoonKim
+              <span className="font-bold text-xl">Joohoon Kim</span>
             </NavLink>
 
             {/* 데스크탑 메뉴 */}
@@ -44,7 +44,7 @@ function Navbar() {
                       to={item.to}
                       className={getLinkClasses}
                   >
-                    {item.name}
+                    <span className="font-bold text-base">{item.name}</span>
                   </NavLink>
               ))}
             </div>
@@ -118,7 +118,7 @@ function Navbar() {
                 `}
                           onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        {item.name}
+                        <span className="font-bold text-base">{item.name}</span>
                       </NavLink>
                   ))}
                 </div>

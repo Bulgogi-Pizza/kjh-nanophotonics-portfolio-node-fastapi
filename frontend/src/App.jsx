@@ -7,6 +7,7 @@ import CVPage from './pages/CVPage';
 import AwardsPage from './pages/AwardsPage';
 import ConferencesPage from './pages/ConferencesPage';
 import MediaPage from './pages/MediaPage';
+import AdminPage from "./pages/AdminPage.jsx";
 
 const ThemeContext = createContext();
 
@@ -58,6 +59,7 @@ function App() {
                 <Route path="awards" element={<AwardsPage/>}/>
                 <Route path="conferences" element={<ConferencesPage/>}/>
                 <Route path="media" element={<MediaPage/>}/>
+                <Route path="admin" element={<AdminPage/>}/>
               </Route>
             </Routes>
           </div>

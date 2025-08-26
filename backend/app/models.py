@@ -108,15 +108,20 @@ class Media(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 
-class CVContent(SQLModel, table=True):
+class RepresentativeWork(SQLModel, table=True):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     id: Optional[int] = Field(default=None, primary_key=True)
-    section: str
     title: str
-    content: str  # Text 대신 str 사용
-    order_index: int = Field(default=0)
+    journal: str
+    is_in_revision: bool = Field(default=False)
+    pages: Optional[str] = None  # 예: "474-481"
+    year: Optional[str] = None  # 예: "2023"
+    image_path: str  # 이미지 파일 경로
+    order_index: int = Field(default=0)  # 슬라이드 순서
+    is_active: bool = Field(default=True)
     created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
 
 
 class GalleryImage(SQLModel, table=True):
@@ -124,8 +129,9 @@ class GalleryImage(SQLModel, table=True):
 
     id: Optional[int] = Field(default=None, primary_key=True)
     title: str
-    image_url: str
+    image_path: str
     alt_text: Optional[str] = None
+    category: str  # manufacturing, design, applications
     order_index: int = Field(default=0)
     is_active: bool = Field(default=True)
     created_at: datetime = Field(default_factory=datetime.utcnow)

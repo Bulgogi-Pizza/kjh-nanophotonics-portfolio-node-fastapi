@@ -5,7 +5,7 @@ from alembic import context
 # 모든 모델을 import
 from app.models import (
     Education, Experience, Award, Publication,
-    Conference, Media, CVContent, GalleryImage
+    Conference, Media, GalleryImage
 )
 from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool

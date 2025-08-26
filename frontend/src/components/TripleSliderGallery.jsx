@@ -89,12 +89,8 @@ function TripleSliderGallery() {
           {/* 섹션 제목 */}
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Research Highlights
+              Research
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Breakthrough innovations spanning from manufacturing to
-              cutting-edge applications
-            </p>
           </div>
 
           {/* 3개 슬라이더 그리드 */}

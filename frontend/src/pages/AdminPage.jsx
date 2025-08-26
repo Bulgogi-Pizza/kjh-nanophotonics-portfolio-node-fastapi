@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
+import CVMarkdownManager from "./admin/CVMarkdownManager.jsx";
 
 function AdminPage() {
   const [representativeWorks, setRepresentativeWorks] = useState([]);
@@ -14,16 +15,19 @@ function AdminPage() {
 
   const loadData = async () => {
     try {
-      const [worksRes, imagesRes] = await Promise.all([
+      const [worksRes, imagesRes, cvRes] = await Promise.all([
         fetch('/api/representative-works/?active_only=false'),
-        fetch('/api/representative-works/gallery/?active_only=false')
+        fetch('/api/representative-works/gallery/?active_only=false'),
+        fetch('/api/cv-markdown/documents')
       ]);
 
       const works = await worksRes.json();
-      const images = await imagesRes.json();
+      const images = imagesRes.ok ? await imagesRes.json() : [];
+      const cvDocs = cvRes.ok ? await cvRes.json() : [];
 
       setRepresentativeWorks(works);
       setGalleryImages(images);
+      setCvDocuments(cvDocs); // state 추가 필요
       setLoading(false);
     } catch (error) {
       console.error('Error loading ', error);
@@ -95,6 +99,16 @@ function AdminPage() {
               >
                 Research Areas
               </button>
+              <button
+                  onClick={() => setActiveTab('cv-markdown')}
+                  className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                      activeTab === 'cv-markdown'
+                          ? 'border-blue-500 text-blue-600'
+                          : 'border-transparent text-gray-500 hover:text-gray-700'
+                  }`}
+              >
+                CV Markdown
+              </button>
             </nav>
           </div>
 
@@ -119,6 +133,7 @@ function AdminPage() {
                   onUpdate={loadData}
               />
           )}
+          {activeTab === 'cv-markdown' && <CVMarkdownManager/>}
         </div>
       </div>
   );

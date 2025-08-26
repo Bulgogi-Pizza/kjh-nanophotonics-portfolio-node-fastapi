@@ -150,3 +150,16 @@ class ResearchArea(SQLModel, table=True):
     is_active: bool = Field(default=True)
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+class MarkdownCV(SQLModel, table=True):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    id: Optional[int] = Field(default=None, primary_key=True)
+    title: str
+    content: str  # 마크다운 텍스트
+    description: Optional[str] = None
+    is_active: bool = Field(default=False)
+    version: int = Field(default=1)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)

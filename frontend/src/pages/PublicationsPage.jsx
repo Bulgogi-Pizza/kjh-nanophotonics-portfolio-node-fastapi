@@ -126,30 +126,6 @@ function PublicationsPage() {
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
               Publications
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-6">
-              Full list of research publications in nanophotonics and
-              engineering
-            </p>
-
-            {/* 통계 정보 */}
-            <div
-                className="flex justify-center space-x-8 text-sm text-gray-600 dark:text-gray-400">
-              <div><span
-                  className="font-semibold text-blue-600">{stats.total}</span> Total
-                Papers
-              </div>
-              <div><span
-                  className="font-semibold text-blue-600">{stats.first_author}</span> First
-                Author
-              </div>
-              <div><span
-                  className="font-semibold text-blue-600">{stats.corresponding}</span> Corresponding
-              </div>
-              <div><span
-                  className="font-semibold text-blue-600">{stats.under_submission}</span> Under
-                Review
-              </div>
-            </div>
           </div>
 
           {/* 필터 및 검색 */}
@@ -185,43 +161,6 @@ function PublicationsPage() {
                     <option key={year} value={year}>{year}</option>
                 ))}
               </select>
-
-              {/* 기여도 필터 */}
-              <select
-                  value={filters.contribution}
-                  onChange={(e) => setFilters(
-                      {...filters, contribution: e.target.value})}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-              >
-                {contributionOptions.map(option => (
-                    <option key={option.value}
-                            value={option.value}>{option.label}</option>
-                ))}
-              </select>
-
-              {/* 상태 필터 */}
-              <select
-                  value={filters.status}
-                  onChange={(e) => setFilters(
-                      {...filters, status: e.target.value})}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-              >
-                {statusOptions.map(option => (
-                    <option key={option.value}
-                            value={option.value}>{option.label}</option>
-                ))}
-              </select>
-
-              {/* 필터 리셋 */}
-              <button
-                  onClick={() => {
-                    setFilters({year: '', contribution: '', status: ''});
-                    setSearchTerm('');
-                  }}
-                  className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-              >
-                Reset
-              </button>
             </div>
           </div>
 
@@ -242,22 +181,6 @@ function PublicationsPage() {
                       #{pub.number}
                     </span>
 
-                        {/* 기여도 배지 */}
-                        <span
-                            className={`px-3 py-1 rounded-full text-xs font-semibold ${getContributionBadge(
-                                pub)}`}>
-                      {pub.contribution_type.replace('-', ' ').replace(/\b\w/g,
-                          l => l.toUpperCase())}
-                    </span>
-
-                        {/* 상태 배지 */}
-                        <span
-                            className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusBadge(
-                                pub.status)}`}>
-                      {pub.status.replace('-', ' ').replace(/\b\w/g,
-                          l => l.toUpperCase())}
-                    </span>
-
                         {/* 연도 */}
                         <span
                             className="text-sm text-gray-500 dark:text-gray-400 font-medium">
@@ -270,32 +193,29 @@ function PublicationsPage() {
                       </h3>
 
                       <p className="text-gray-600 dark:text-gray-400 mb-2">
-                        <span
-                            className="font-medium">Authors:</span> {pub.authors}
+                        {pub.authors}
                       </p>
 
                       <div
-                          className="flex flex-wrap items-center gap-4 text-sm mb-3">
-                        <p className="text-blue-600 dark:text-blue-400 font-semibold">
+                          className="flex flex-wrap items-center text-sm mb-3">
+                        <p className="text-blue-600 dark:text-blue-400 font-bold italic">
                           {pub.journal}
                         </p>
                         {pub.volume && (
-                            <p className="text-gray-600 dark:text-gray-400">
-                              <span
-                                  className="font-medium">Vol.</span> {pub.volume}
+                            <p className="text-blue-600 dark:text-blue-400 font-bold">
+                              &nbsp;{pub.volume}
                             </p>
                         )}
                         {pub.pages && (
-                            <p className="text-gray-600 dark:text-gray-400">
-                              <span
-                                  className="font-medium">Pages:</span> {pub.pages}
+                            <p className="text-blue-600 dark:text-blue-400">
+                              , {pub.pages}
                             </p>
                         )}
                       </div>
 
                       {pub.featured_info && (
                           <p className="text-sm text-indigo-600 dark:text-indigo-400 font-medium mb-3">
-                            🌟 {pub.featured_info}
+                            {pub.featured_info}
                           </p>
                       )}
 

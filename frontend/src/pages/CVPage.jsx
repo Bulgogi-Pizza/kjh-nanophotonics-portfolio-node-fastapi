@@ -37,22 +37,14 @@ function CVPage() {
     }
   };
 
-  const formatDate = (isoString) => {
-    return new Date(isoString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
-
   if (loading) {
     return (
         <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-          <div className="container mx-auto px-6 py-24">
+          <div className="container mx-auto px-8 py-24">
             <div className="text-center">
               <div
-                  className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 dark:text-gray-400">Loading CV...</p>
+                  className="animate-spin h-8 w-8 border-2 border-t-transparent border-blue-600 mx-auto mb-4"></div>
+              <p className="text-gray-600 dark:text-gray-400">Loading...</p>
             </div>
           </div>
         </div>
@@ -62,22 +54,15 @@ function CVPage() {
   if (error) {
     return (
         <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-          <div className="container mx-auto px-6 py-24">
+          <div className="container mx-auto px-8 py-24">
             <div className="text-center">
-              <div className="text-red-500 mb-4">
-                <svg className="w-16 h-16 mx-auto mb-4" fill="none"
-                     stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-              </div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Error
-                Loading CV</h2>
-              <p className="text-red-500 mb-4">{error}</p>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                Error Loading CV
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">{error}</p>
               <button
                   onClick={loadActiveCV}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-6 py-3 bg-blue-600 text-white hover:bg-blue-700 transition-colors font-medium"
               >
                 Try Again
               </button>
@@ -90,25 +75,17 @@ function CVPage() {
   if (!activeDocument) {
     return (
         <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-          <div className="container mx-auto px-6 py-24">
+          <div className="container mx-auto px-8 py-24">
             <div className="text-center">
-              <div className="text-gray-400 mb-8">
-                <svg className="w-24 h-24 mx-auto mb-4" fill="none"
-                     stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round"
-                        strokeWidth={1}
-                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                </svg>
-              </div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-                Curriculum Vitae
+              <h1 className="text-6xl font-bold text-gray-900 dark:text-white mb-8">
+                CV
               </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
+              <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
                 No CV document is currently available.
               </p>
               <button
                   onClick={loadActiveCV}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-6 py-3 bg-blue-600 text-white hover:bg-blue-700 transition-colors font-medium"
               >
                 Check Again
               </button>
@@ -120,36 +97,59 @@ function CVPage() {
 
   return (
       <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-        <div className="container mx-auto px-6 py-12">
+        <div className="container mx-auto px-8 py-16 max-w-7xl">
 
-          {/* 헤더 (프린트 시 숨김) */}
-          <div className="text-center mb-12 no-print">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-              Curriculum Vitae
+          {/* 페이지 헤더 */}
+          <div className="mb-12 text-center">
+            <h1 className="text-6xl font-bold text-gray-900 dark:text-white mb-8">
+              CV
             </h1>
           </div>
 
-          {/* 마크다운 콘텐츠 */}
+          {/* CV 콘텐츠 */}
           <div className="max-w-4xl mx-auto">
-            <div
-                className="bg-white dark:bg-gray-800">
-
-              <div className="p-8 print:p-0">
+            <div className="bg-white dark:bg-gray-800 shadow-sm">
+              <div className="px-12 py-16">
                 <div
-                    className="prose prose-lg dark:prose-invert max-w-none cv-markdown">
+                    className="prose prose-lg dark:prose-invert max-w-none cv-content">
                   <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       rehypePlugins={[rehypeRaw]}
                       components={{
-                        // 커스텀 렌더링 컴포넌트
                         h1: ({node, ...props}) => (
-                            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 pb-2 border-b-2 border-blue-600" {...props} />
+                            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8 pb-4 border-b border-gray-200 dark:border-gray-700" {...props} />
                         ),
                         h2: ({node, ...props}) => (
-                            <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mt-8 mb-4 text-blue-600" {...props} />
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-12 mb-6" {...props} />
                         ),
                         h3: ({node, ...props}) => (
-                            <h3 className="text-xl font-medium text-gray-700 dark:text-gray-300 mt-6 mb-3" {...props} />
+                            <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mt-8 mb-4" {...props} />
+                        ),
+                        p: ({node, ...props}) => (
+                            <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4" {...props} />
+                        ),
+                        ul: ({node, ...props}) => (
+                            <ul className="list-disc list-inside space-y-2 ml-4 text-gray-700 dark:text-gray-300 mb-6" {...props} />
+                        ),
+                        ol: ({node, ...props}) => (
+                            <ol className="list-decimal list-inside space-y-2 ml-4 text-gray-700 dark:text-gray-300 mb-6" {...props} />
+                        ),
+                        li: ({node, ...props}) => (
+                            <li className="text-gray-700 dark:text-gray-300" {...props} />
+                        ),
+                        strong: ({node, ...props}) => (
+                            <strong
+                                className="font-semibold text-gray-900 dark:text-white" {...props} />
+                        ),
+                        a: ({node, ...props}) => (
+                            <a className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium" {...props} />
+                        ),
+                        blockquote: ({node, ...props}) => (
+                            <blockquote
+                                className="border-l-4 border-blue-600 pl-6 italic text-gray-600 dark:text-gray-400 my-6" {...props} />
+                        ),
+                        hr: ({node, ...props}) => (
+                            <hr className="my-8 border-gray-200 dark:border-gray-700" {...props} />
                         ),
                         table: ({node, ...props}) => (
                             <div className="overflow-x-auto my-6">
@@ -163,32 +163,13 @@ function CVPage() {
                         td: ({node, ...props}) => (
                             <td className="px-4 py-2 border border-gray-300 dark:border-gray-600" {...props} />
                         ),
-                        blockquote: ({node, ...props}) => (
-                            <blockquote
-                                className="border-l-4 border-blue-500 pl-4 italic text-gray-600 dark:text-gray-400 my-4" {...props} />
-                        ),
                         code: ({node, inline, ...props}) => (
                             inline ?
                                 <code
-                                    className="bg-gray-100 dark:bg-gray-700 px-1 py-0.5 rounded text-sm" {...props} />
+                                    className="bg-gray-100 dark:bg-gray-700 px-2 py-1 text-sm font-mono" {...props} />
                                 :
                                 <code
-                                    className="block bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-sm overflow-x-auto" {...props} />
-                        ),
-                        a: ({node, ...props}) => (
-                            <a className="text-blue-600 dark:text-blue-400 hover:underline" {...props} />
-                        ),
-                        ul: ({node, ...props}) => (
-                            <ul className="list-disc list-inside space-y-1 ml-4" {...props} />
-                        ),
-                        ol: ({node, ...props}) => (
-                            <ol className="list-decimal list-inside space-y-1 ml-4" {...props} />
-                        ),
-                        li: ({node, ...props}) => (
-                            <li className="text-gray-700 dark:text-gray-300" {...props} />
-                        ),
-                        hr: ({node, ...props}) => (
-                            <hr className="my-8 border-gray-300 dark:border-gray-600" {...props} />
+                                    className="block bg-gray-100 dark:bg-gray-700 p-4 text-sm font-mono overflow-x-auto mb-6" {...props} />
                         )
                       }}
                   >
@@ -196,56 +177,21 @@ function CVPage() {
                   </ReactMarkdown>
                 </div>
               </div>
-
-              {/* 푸터 (프린트 시 숨김) */}
-              <div
-                  className="px-8 pb-8 pt-4 border-t border-gray-200 dark:border-gray-700 text-center no-print">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Last updated: {formatDate(activeDocument.updated_at)}
-                </p>
-              </div>
             </div>
           </div>
+
+          {/* Last Updated 정보 */}
+          <div className="mt-8 text-center">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Last updated: {new Date(
+                activeDocument.updated_at).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+            </p>
+          </div>
         </div>
-
-        {/* 프린트 스타일 */}
-        <style jsx>{`
-          @media print {
-            .no-print {
-              display: none !important;
-            }
-
-            .cv-markdown {
-              font-size: 12pt;
-              line-height: 1.4;
-            }
-
-            .cv-markdown h1 {
-              font-size: 18pt;
-              margin-bottom: 12pt;
-            }
-
-            .cv-markdown h2 {
-              font-size: 14pt;
-              margin-top: 16pt;
-              margin-bottom: 8pt;
-            }
-
-            .cv-markdown h3 {
-              font-size: 12pt;
-              margin-top: 12pt;
-              margin-bottom: 6pt;
-            }
-
-            .cv-markdown p {
-              margin-bottom: 8pt;
-            }
-
-            .cv-markdown ul, .cv-markdown ol {
-              margin-bottom: 8pt;
-            }
-          }
-        `}</style>
       </div>
   );
 }

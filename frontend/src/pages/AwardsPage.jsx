@@ -103,31 +103,36 @@ function AwardsPage() {
 
                   {/* 오른쪽 수상 정보 영역 */}
                   <div className="flex-1 py-3">
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="flex items-center gap-3">
-                        <span
-                            className="text-lg font-bold text-blue-600 dark:text-blue-400">
-                          {award.year}
-                        </span>
-                      </div>
-                    </div>
-
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">
                       {award.title}
                     </h3>
 
-                    <p className="text-gray-700 dark:text-gray-300 mb-1 leading-relaxed">
-                      {award.organization}
-                      {award.location && `, ${award.location}`}
-                    </p>
+                    <div
+                        className="flex flex-wrap items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
 
-                    {award.description && (
-                        <div className="text-gray-600 dark:text-gray-400">
-                          <p className="leading-relaxed text-sm">
-                            {award.description}
-                          </p>
-                        </div>
-                    )}
+                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                        {award.organization}
+                        {award.location && `, ${award.location}`}
+                      </p>
+
+                      {award.year && (
+                          <>
+                            <span className="text-gray-400">•</span>
+                            <span
+                                className="font-semibold text-blue-600 dark:text-blue-400">
+                              {award.year}
+                            </span>
+                          </>
+                      )}
+
+                      {award.description && (
+                          <div className="text-gray-600 dark:text-gray-400">
+                            <p className="leading-relaxed text-sm">
+                              {award.description}
+                            </p>
+                          </div>
+                      )}
+                    </div>
                   </div>
                 </article>
             ))}

@@ -56,16 +56,24 @@ function ResearchPage() {
           {/* 탭 네비게이션 */}
           <div className="mb-12">
             <nav className="flex justify-center">
-              <div className="flex bg-white dark:bg-gray-800 shadow-sm">
+              <div
+                  className="flex md:flex-row flex-col w-full max-w-4xl bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
                 {researchAreas.map((area) => (
                     <button
                         key={area.slug}
                         onClick={() => setActiveArea(area)}
-                        className={`px-8 py-4 text-sm font-medium transition-all duration-200 border-r border-gray-200 dark:border-gray-700 last:border-r-0 ${
+                        className={`flex-1 px-4 py-4 text-sm font-medium transition-all duration-200 
+                md:border-r md:border-b-0 border-b border-gray-200 dark:border-gray-700 
+                md:last:border-r-0 last:border-b-0 break-words ${
                             activeArea?.id === area.id
                                 ? 'text-white bg-blue-600'
                                 : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700'
                         }`}
+                        style={{
+                          wordBreak: 'break-word',
+                          overflowWrap: 'break-word',
+                          whiteSpace: 'normal'
+                        }}
                     >
                       {area.title}
                     </button>
@@ -88,7 +96,7 @@ function ResearchPage() {
 
                     <div
                         className="prose prose-xl dark:prose-invert max-w-none text-center">
-                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
+                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg text-left break-words hyphens-auto">
                         {activeArea.description}
                       </p>
                     </div>

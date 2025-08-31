@@ -17,15 +17,13 @@ function PublicationsPage() {
     Promise.all([
       fetch('/api/publications/'),
       fetch('/api/publications/years'),
-      fetch('/api/publications/stats')
     ])
-    .then(([pubRes, yearsRes, statsRes]) =>
-        Promise.all([pubRes.json(), yearsRes.json(), statsRes.json()])
+    .then(([pubRes, yearsRes]) =>
+        Promise.all([pubRes.json(), yearsRes.json()])
     )
-    .then(([pubData, yearsData, statsData]) => {
+    .then(([pubData, yearsData]) => {
       setPublications(pubData);
       setAvailableYears(yearsData.years);
-      setStats(statsData);
       setLoading(false);
     })
     .catch(error => {
@@ -42,9 +40,6 @@ function PublicationsPage() {
     }
     if (filters.category) {
       queryParams.append('category', filters.category);
-    }
-    if (filters.status) {
-      queryParams.append('status', filters.status);
     }
 
     fetch(`/api/publications/?${queryParams.toString()}`)
@@ -66,7 +61,7 @@ function PublicationsPage() {
 
   if (loading) {
     return (
-        <div className="min-h-screen pt-16 bg-gray-50 dark:bg-gray-900">
+        <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-8 py-24">
             <div className="text-center">
               <div
@@ -122,7 +117,7 @@ function PublicationsPage() {
           {/* 총 논문 수 표시 */}
           <div className="mb-8">
             <p className="text-gray-600 dark:text-gray-400">
-              Total {filteredPublications.length} 페이지
+              Total {filteredPublications.length} publications
             </p>
           </div>
 
@@ -132,7 +127,7 @@ function PublicationsPage() {
           ).map(year => (
               <div key={year} className="mb-16">
                 {/* 연도 헤더 */}
-                <div className="mb-8">
+                <div className="mb-0">
                   <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                     {year}
                   </h2>
@@ -141,34 +136,26 @@ function PublicationsPage() {
                 </div>
 
                 {/* 해당 연도의 논문들 */}
-                <div className="space-y-8">
+                <div className="space-y-2">
                   {filteredPublications
                   .filter(pub => pub.year === year)
                   .map((pub) => (
                       <article
                           key={pub.id}
-                          className="flex gap-8 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-200"
+                          className="flex gap-6 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-all duration-200 py-4 relative"
                       >
-
+                        {/* 왼쪽 넘버링 */}
+                        <div
+                            className="w-16 text-center pr-4 border-r border-gray-300 dark:border-gray-600 flex-shrink-0 flex items-start justify-center pt-2">
+                          <span
+                              className="text-2xl font-bold text-gray-900 dark:text-white">
+                            {pub.number}
+                          </span>
+                        </div>
 
                         {/* 오른쪽 논문 정보 영역 */}
-                        <div className="flex-1 py-4">
-                          <div
-                              className="flex justify-between items-start mb-4">
-                            <div className="flex items-center gap-4">
-                                  <span
-                                      className="text-lg font-bold text-gray-900 dark:text-white">
-                                    {pub.number}
-                                  </span>
-                            </div>
-                            {(pub.doi || pub.arxiv) && (
-                                <button
-                                    className="px-4 py-1 border border-blue-600 text-blue-600 dark:text-blue-400 text-sm font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
-                                  🔗 LINK
-                                </button>
-                            )}
-                          </div>
-
+                        <div
+                            className="flex-1"> {/* 오른쪽에 LINK 버튼 공간 확보 */}
                           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
                             {pub.title}
                           </h3>
@@ -178,26 +165,43 @@ function PublicationsPage() {
                           </p>
 
                           <div
-                              className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                              className="flex items-center gap-0 text-gray-600 dark:text-gray-400 mb-3">
+                            <span
+                                className="font-medium italic text-blue-600 dark:text-blue-400">
+                              {pub.journal}
+                            </span>
+                            {pub.volume && (
                                 <span
-                                    className="font-medium italic text-blue-600 dark:text-blue-400">
-                                  {pub.journal}
+                                    className="font-medium text-blue-600 dark:text-blue-400">
+                                  &nbsp;{pub.volume}
                                 </span>
-                            <span>, {pub.year}</span>
-                            {pub.status && (
-                                <>
-                                  <span>, </span>
-                                  <span className="italic">{pub.status}</span>
-                                </>
                             )}
+                            {pub.pages && (
+                                <span
+                                    className="text-blue-600 dark:text-blue-400">
+                                  , {pub.pages}
+                                </span>
+                            )}
+                            <span>, {pub.year}</span>
                           </div>
 
+                          {/* Featured Info */}
                           {pub.featured_info && (
-                              <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                              <p className="text-sm text-gray-600 dark:text-gray-400">
                                 {pub.featured_info}
                               </p>
                           )}
                         </div>
+
+                        {/* 우하단 LINK 버튼 (absolute positioning) */}
+                        {(pub.doi || pub.arxiv) && (
+                            <div className="absolute bottom-6 right-6">
+                              <button
+                                  className="px-4 py-2 border border-blue-600 text-blue-600 dark:text-blue-400 text-sm font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+                                🔗 LINK
+                              </button>
+                            </div>
+                        )}
                       </article>
                   ))}
                 </div>

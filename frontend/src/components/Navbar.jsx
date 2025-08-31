@@ -20,9 +20,10 @@ function Navbar() {
   const menuItems = [
     {name: 'Home', to: '/'},
     {name: 'Research', to: '/research', hasDropdown: true},
+    {name: 'CV', to: '/cv'},
     {name: 'Publications', to: '/publications'},
     {name: 'Awards', to: '/awards'},
-    {name: 'CV', to: '/cv'},
+    {name: 'Conferences', to: '/conferences'},
   ];
 
   const getLinkClasses = ({isActive}) => `

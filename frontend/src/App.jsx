@@ -9,6 +9,7 @@ import ConferencesPage from './pages/ConferencesPage';
 import MediaPage from './pages/MediaPage';
 import AdminPage from "./pages/AdminPage.jsx";
 import ResearchPage from "./pages/ResearchPage.jsx";
+import FontInjector from "./modules/FontInjector.jsx";
 
 const ThemeContext = createContext();
 
@@ -49,6 +50,7 @@ function App() {
 
   return (
       <ThemeContext.Provider value={{isDarkMode, toggleDarkMode}}>
+        <FontInjector/>
         <BrowserRouter>
           <div
               className="min-h-screen bg-white dark:bg-gray-900 transition-colors">

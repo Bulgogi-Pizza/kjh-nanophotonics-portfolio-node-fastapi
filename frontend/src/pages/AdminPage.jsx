@@ -1,11 +1,8 @@
 // AdminPage.jsx
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import CVMarkdownManager from "./admin/CVMarkdownManager.jsx";
 import RepresentativeWorksTab from "./admin/RepresentativeWorksTab.jsx";
-import GalleryImagesTab from "./admin/GalleryImagesTab.jsx";
 import ResearchAreasTab from "./admin/ResearchAreasTab.jsx";
-import CVEditorTab from "./admin/CVEditorTab.jsx";
 import PublicationsTab from "./admin/PublicationsTab.jsx";
 
 function AdminPage() {
@@ -90,16 +87,6 @@ function AdminPage() {
                 Representative Works
               </button>
               <button
-                  onClick={() => setActiveTab('gallery')}
-                  className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                      activeTab === 'gallery'
-                          ? 'border-blue-500 text-blue-600'
-                          : 'border-transparent text-gray-500 hover:text-gray-700'
-                  }`}
-              >
-                Gallery Images
-              </button>
-              <button
                   onClick={() => setActiveTab('research')}
                   className={`py-2 px-1 border-b-2 font-medium text-sm ${
                       activeTab === 'research'
@@ -109,27 +96,7 @@ function AdminPage() {
               >
                 Research Areas
               </button>
-              <button
-                  onClick={() => setActiveTab('cv-editor')}
-                  className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                      activeTab === 'cv-editor'
-                          ? 'border-blue-500 text-blue-600'
-                          : 'border-transparent text-gray-500 hover:text-gray-700'
-                  }`}
-              >
-                CV Editor
-              </button>
-              <button
-                  onClick={() => setActiveTab('cv-markdown')}
-                  className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                      activeTab === 'cv-markdown'
-                          ? 'border-blue-500 text-blue-600'
-                          : 'border-transparent text-gray-500 hover:text-gray-700'
-                  }`}
-              >
-                CV Markdown
-              </button>
-              {/* 3. Publications 탭을 위한 버튼을 추가합니다. */}
+
               <button
                   onClick={() => setActiveTab('publications')}
                   className={`py-2 px-1 border-b-2 font-medium text-sm ${
@@ -151,13 +118,6 @@ function AdminPage() {
               />
           )}
 
-          {activeTab === 'gallery' && (
-              <GalleryImagesTab
-                  images={galleryImages}
-                  onUpdate={loadData}
-              />
-          )}
-
           {activeTab === 'publications' && <PublicationsTab/>}
 
 
@@ -168,9 +128,6 @@ function AdminPage() {
               />
           )}
 
-          {activeTab === 'cv-editor' && <CVEditorTab/>}
-
-          {activeTab === 'cv-markdown' && <CVMarkdownManager/>}
         </div>
       </div>
   );

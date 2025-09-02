@@ -141,7 +141,7 @@ function ConferencesPage() {
 
                     {/* 두 번째 행: location, month, year, presentation_type, award */}
                     <div
-                        className="flex flex-wrap items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+                        className="flex flex-wrap items-center gap-2 text-gray-600 dark:text-gray-300">
                       {/* Location */}
                       <span>{conference.location}</span>
 
@@ -158,7 +158,7 @@ function ConferencesPage() {
                           <>
                             <span className="text-gray-400">•</span>
                             <span
-                                className="font-semibold text-blue-600 dark:text-blue-400">
+                                className="font-medium text-blue-600 dark:text-blue-400">
                               {conference.year}
                             </span>
                           </>

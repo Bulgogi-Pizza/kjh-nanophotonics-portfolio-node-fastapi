@@ -75,11 +75,11 @@ function PublicationsPage() {
 
   return (
       <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-        <div className="container mx-auto px-8 py-16 max-w-7xl">
+        <div className="container mx-auto px-8 py-12 max-w-7xl">
 
           {/* 페이지 헤더 */}
-          <div className="mb-12">
-            <h1 className="text-6xl font-bold text-gray-900 dark:text-white text-center mb-8">
+          <div className="mb-8 text-center">
+            <h1 className="text-6xl font-bold text-gray-900 dark:text-white mb-6">
               Publications
             </h1>
           </div>
@@ -156,7 +156,7 @@ function PublicationsPage() {
                         {/* 오른쪽 논문 정보 영역 */}
                         <div
                             className="flex-1"> {/* 오른쪽에 LINK 버튼 공간 확보 */}
-                          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+                          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">
                             {pub.title}
                           </h3>
 

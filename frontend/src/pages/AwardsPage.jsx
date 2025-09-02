@@ -108,7 +108,7 @@ function AwardsPage() {
                     </h3>
 
                     <div
-                        className="flex flex-wrap items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+                        className="flex flex-wrap items-center gap-2 text-gray-700 dark:text-gray-300">
 
                       <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                         {award.organization}

@@ -196,10 +196,14 @@ function PublicationsPage() {
                         {/* 우하단 LINK 버튼 (absolute positioning) */}
                         {(pub.doi || pub.arxiv) && (
                             <div className="absolute bottom-6 right-6">
-                              <button
-                                  className="px-4 py-2 border border-blue-600 text-blue-600 dark:text-blue-400 text-sm font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+                              <a
+                                  href={`https://doi.org/${pub.doi}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center px-3 py-1 text-xs font-medium text-blue-600 dark:text-blue-400 border border-blue-600 dark:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                              >
                                 🔗 LINK
-                              </button>
+                              </a>
                             </div>
                         )}
                       </article>

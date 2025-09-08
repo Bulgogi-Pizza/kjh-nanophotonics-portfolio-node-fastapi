@@ -98,12 +98,14 @@ function HeroSection() {
                 </h1>
 
                 <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-                  I am a Postdoctoral Researcher at POSTECH Institute of
-                  Artificial Intelligence, working with Prof. Junsuk Rho.
-                  My research focuses on innovating nanofabrication techniques
-                  for the scalable manufacturing of metasurfaces, with
-                  particular interest in their practical applications such as
-                  VR/AR, light-field displays, and optical computing.
+                  I am Ph.D. student at Pohang University of Science and
+                  Technology (POSTECH), working under the supervision of Prof.
+                  Junsuk Rho at the Nanoscale photonics & integrated
+                  manufacturing lab. My research focuses on innovating
+                  nanofabrication techniques for the scalable manufacturing of
+                  metasurfaces, with particular interest in their practical
+                  applications such as VR/AR, light-field displays, and optical
+                  computing.
                 </p>
               </div>
             </div>

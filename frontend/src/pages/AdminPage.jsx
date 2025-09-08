@@ -4,12 +4,16 @@ import {Link} from 'react-router-dom';
 import RepresentativeWorksTab from "./admin/RepresentativeWorksTab.jsx";
 import ResearchAreasTab from "./admin/ResearchAreasTab.jsx";
 import PublicationsTab from "./admin/PublicationsTab.jsx";
+import CoverArtsTab from "./admin/CoverArtsTab.jsx";
+import ResearchHighlightsTab from "./admin/ResearchHighlightsTab.jsx";
 
 function AdminPage() {
   const [representativeWorks, setRepresentativeWorks] = useState([]);
   const [galleryImages, setGalleryImages] = useState([]);
   const [researchAreas, setResearchAreas] = useState([]);
   const [cvDocuments, setCvDocuments] = useState([]);
+  const [researchHighlights, setResearchHighlights] = useState([]);
+  const [coverArts, setCoverArts] = useState([]);
   const [activeTab, setActiveTab] = useState('representative-works');
   const [loading, setLoading] = useState(true);
 
@@ -19,22 +23,29 @@ function AdminPage() {
 
   const loadData = async () => {
     try {
-      const [worksRes, imagesRes, areasRes, cvRes] = await Promise.all([
-        fetch('/api/representative-works/?active_only=false'),
-        fetch('/api/representative-works/gallery/?active_only=false'),
-        fetch('/api/research-areas/?active_only=false'),
-        fetch('/api/cv-markdown/documents')
-      ]);
+      const [worksRes, imagesRes, areasRes, cvRes, highlightsRes, coversRes] = await Promise.all(
+          [
+            fetch('/api/representative-works/?active_only=false'),
+            fetch('/api/representative-works/gallery/?active_only=false'),
+            fetch('/api/research-areas/?active_only=false'),
+            fetch('/api/cv-markdown/documents'),
+            fetch('/api/research-highlights/?active_only=false'),
+            fetch('/api/cover-arts/?active_only=false'),
+          ]);
 
       const works = await worksRes.json();
       const images = imagesRes.ok ? await imagesRes.json() : [];
       const areas = areasRes.ok ? await areasRes.json() : [];
       const cvDocs = cvRes.ok ? await cvRes.json() : [];
+      const highlights = highlightsRes.ok ? await highlightsRes.json() : [];
+      const covers = coversRes.ok ? await coversRes.json() : [];
 
       setRepresentativeWorks(works);
       setGalleryImages(images);
       setResearchAreas(areas);
       setCvDocuments(cvDocs);
+      setResearchHighlights(highlights);
+      setCoverArts(covers);
       setLoading(false);
     } catch (error) {
       console.error('Error loading ', error);
@@ -107,25 +118,43 @@ function AdminPage() {
               >
                 Publications
               </button>
+
+              <button onClick={() => setActiveTab('research-highlights')}
+                      className={`py-2 px-1 border-b-2 font-medium text-sm ${activeTab
+                      === 'research-highlights'
+                          ? 'border-blue-500 text-blue-600'
+                          : 'border-transparent text-gray-500 hover:text-gray-700'}`}>
+                Research Highlights
+              </button>
+
+              <button onClick={() => setActiveTab('cover-arts')}
+                      className={`py-2 px-1 border-b-2 font-medium text-sm ${activeTab
+                      === 'cover-arts' ? 'border-blue-500 text-blue-600'
+                          : 'border-transparent text-gray-500 hover:text-gray-700'}`}>
+                Cover Arts
+              </button>
             </nav>
           </div>
 
           {/* 탭 콘텐츠 */}
           {activeTab === 'representative-works' && (
-              <RepresentativeWorksTab
-                  works={representativeWorks}
-                  onUpdate={loadData}
-              />
+              <RepresentativeWorksTab works={representativeWorks}
+                                      onUpdate={loadData}/>
           )}
 
           {activeTab === 'publications' && <PublicationsTab/>}
 
-
           {activeTab === 'research' && (
-              <ResearchAreasTab
-                  areas={researchAreas}
-                  onUpdate={loadData}
-              />
+              <ResearchAreasTab areas={researchAreas} onUpdate={loadData}/>
+          )}
+
+          {activeTab === 'research-highlights' && (
+              <ResearchHighlightsTab items={researchHighlights}
+                                     onUpdate={loadData}/>
+          )}
+
+          {activeTab === 'cover-arts' && (
+              <CoverArtsTab items={coverArts} onUpdate={loadData}/>
           )}
 
         </div>

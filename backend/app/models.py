@@ -200,3 +200,34 @@ class CVSection(SQLModel, table=True):
     order_index: int = Field(default=0)
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+class ResearchHighlight(SQLModel, table=True):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    id: Optional[int] = Field(default=None, primary_key=True)
+    image_path: str
+    link: Optional[str] = None
+    description: Optional[str] = None
+    alt_text: Optional[str] = None
+    order_index: int = Field(default=0)
+    is_active: bool = Field(default=True)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+class CoverArt(SQLModel, table=True):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    id: Optional[int] = Field(default=None, primary_key=True)
+    image_path: str
+    link: Optional[str] = None
+    journal: str
+    volume: Optional[str] = None
+    year: Optional[str] = None
+    description: Optional[str] = None
+    alt_text: Optional[str] = None
+    order_index: int = Field(default=0)
+    is_active: bool = Field(default=True)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)

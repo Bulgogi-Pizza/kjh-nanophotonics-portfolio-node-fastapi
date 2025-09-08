@@ -5,7 +5,8 @@ from app import models  # 모든 모델을 import하여 테이블이 생성되�
 from app.database import create_db_and_tables, test_db_connection
 # 라우터 import
 from app.routers import publications, education, experience, awards, \
-    conferences, media, representative_works, research_areas, cv_markdown, cv
+    conferences, media, representative_works, research_areas, cv_markdown, cv, \
+    research_highlights, cover_arts
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -57,6 +58,8 @@ app.include_router(representative_works.router)
 app.include_router(research_areas.router)
 app.include_router(cv_markdown.router)
 app.include_router(cv.router)
+app.include_router(research_highlights.router)
+app.include_router(cover_arts.router)
 
 # 정적 파일 서빙
 app.mount("/static", StaticFiles(directory="static"), name="static")

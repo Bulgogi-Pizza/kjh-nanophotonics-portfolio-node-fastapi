@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
+import {useNavigate} from "react-router-dom"
 
 function ResearchSection() {
   const [researchAreas, setResearchAreas] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('/api/research-areas/')
@@ -46,7 +48,17 @@ function ResearchSection() {
             {researchAreas.map((area) => (
                 <div
                     key={area.id}
-                    className="group bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-700"
+                    role="link"
+                    tabIndex={0}
+                    aria-label={`${area.title} 자세히 보기`}
+                    onClick={() => navigate(`/research/${area.slug}`)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        navigate(
+                            `/research/${area.slug}`);
+                      }
+                    }}
+                    className="group bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   {/* 아이콘 */}
                   {area.icon_path && (
@@ -63,7 +75,7 @@ function ResearchSection() {
                   )}
 
                   {/* 제목 */}
-                  <h3 className="text-xl font-bold break-all text-gray-900 dark:text-white mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  <h3 className="text-xl font-bold break-normal text-gray-900 dark:text-white mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     {area.title}
                   </h3>
 

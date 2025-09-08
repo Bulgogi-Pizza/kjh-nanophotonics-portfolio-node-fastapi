@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 const cvData = {
   profile: {
     name: "Joohoon Kim",
-    title: "Postdoctoral Researcher, Pohang University of Science and Technology (POSTECH) Institute of Artificial Intelligence (PIAI)",
+    title: "Ph.D Candidate, Mechanical Engineering, Pohang University of Science and Technology (POSTECH)",
     email: "kimjuhoon@postech.ac.kr",
     phone: "+82-54-279-6806",
     office: "R1259 RIST Building I",
@@ -26,7 +26,7 @@ const cvData = {
       university: "POSTECH",
       country: "Korea",
       from: "2021",
-      to: "2026",
+      to: "2026, expected",
     },
     {
       degree: "B.S. in Mechanical Engineering",
@@ -41,8 +41,8 @@ const cvData = {
       role: "Postdoctoral Researcher",
       institution: "PIAI",
       location: "Korea",
-      period: "2026 – current",
-      description: null
+      period: "2026 – 2027, expected",
+      description: "In substitution of a mandatory military service"
     },
     {
       role: "Entrepreneurial Member",
@@ -238,11 +238,12 @@ const cvData = {
   services: [
     {
       title: "**Proposal Reviewer**",
-      description: "Served as proposal reviewer for Israeli Ministry of Innovation, Science and Technology"
+      description: "Served as proposal reviewer for Israeli Ministry of Innovation, Science and Technology",
+      journals: ""
     },
     {
       title: "**Journal Reviewer**",
-      description: "Regular reviewer for Nature Communications, Light: Science & Applications, Optica, ACS Photonics, Nanophotonics, Communications Physics, Scientific Reports, Optics Express, Optics Letters, Optics and Laser Technology, Nanomaterials, Displays"
+      description: "Regular reviewer for Nature Communications, Light: Science & Applications, Microsystems & Nanoengineering, Optica, ACS Photonics, Nanophotonics, Communications Physics, Scientific Reports, Optics Express, Optics Letters, Optics and Laser Technology, Nanomaterials, Displays"
     }
   ]
 };
@@ -312,7 +313,7 @@ const EducationItem = ({edu}) => (
       <span className="text-lg font-semibold text-gray-900 dark:text-white">
         {edu.degree}
       </span>
-        <span className="text-base text-gray-900 dark:text-white mt-1">
+        <span className="text-lg text-gray-900 dark:text-white mt-1">
         , {edu.university}, {edu.country} ({edu.from} – {edu.to})
       </span>
       </li>
@@ -327,12 +328,12 @@ const ExperienceItem = ({exp}) => (
       <span className="text-lg font-semibold text-gray-900 dark:text-white">
         {exp.role}
       </span>
-        <span className="text-base text-gray-900 dark:text-white mt-1">
+        <span className="text-lg text-gray-900 dark:text-white mt-1">
         , {exp.institution}, {exp.location} ({exp.period})
       </span>
         {exp.description && (
             <p
-                className="text-base text-gray-900/80 dark:text-white/80 mt-1 italic">
+                className="text-lg text-gray-900/80 dark:text-white/80 mt-1 italic">
               {exp.description}
             </p>
         )}
@@ -348,10 +349,10 @@ const AwardItem = ({award}) => (
           <span
               className="text-lg font-semibold text-gray-900 dark:text-white">{award.name}</span>
           {award.details && <em
-              className="text-gray-900/80 dark:text-white/80">,
+              className="text-lg text-gray-900/80 dark:text-white/80">,
             ({award.details})</em>}
           <span
-              className="text-gray-900/80 dark:text-white/80">, {award.year}</span>
+              className="text-lg text-gray-900/80 dark:text-white/80">, {award.year}</span>
         </div>
       </li>
     </ul>
@@ -362,14 +363,19 @@ const PublicationItem = ({pub}) => (
     <ul className="space-y-4 list-disc pl-5">
       <li className="mb-4">
         <p className="text-lg font-semibold text-gray-900 dark:text-white"> {pub.title}</p>
-        <p className="text-base mt-1 text-gray-900 dark:text-white">
-          <span className="font-bold italic text-red-600">{pub.journal}</span>
+        <p className="text-lg mt-1 text-gray-900 dark:text-white">
+          <span
+              className="text-lg font-bold italic text-red-600">{pub.journal}</span>
           {pub.volume && <span
-              className="font-bold "> {pub.volume}</span>}
-          {pub.pages && `, pp. ${pub.pages}`}
-          {pub.year && ` (${pub.year})`}
-          {pub.status && ` [${pub.status}]`}
-          {pub.if && <span className="font-bold ml-2">[IF: {pub.if}]</span>}
+              className="text-lg font-bold "> {pub.volume}</span>}
+          {pub.pages && <span
+              className="text-lg">, pp. {pub.pages}</span>}
+          {pub.year && <span
+              className="text-lg"> ({pub.year})</span>}
+          {pub.status && <span
+              className="text-lg"> [{pub.status}]</span>}
+          {pub.if && <span
+              className="text-lg font-bold ml-2">[IF: {pub.if}]</span>}
         </p>
       </li>
     </ul>

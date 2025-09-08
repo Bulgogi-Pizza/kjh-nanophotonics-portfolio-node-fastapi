@@ -1,4 +1,7 @@
 import React, {useEffect, useState} from 'react';
+import ResearchHighlightsSection
+  from "./publications/ResearchHighlightsSection.jsx";
+import CoverArtsSection from "./publications/CoverArtsSection.jsx";
 
 function PublicationsPage() {
   const [publications, setPublications] = useState([]);
@@ -82,6 +85,17 @@ function PublicationsPage() {
             <h1 className="text-6xl font-bold text-gray-900 dark:text-white mb-6">
               Publications
             </h1>
+          </div>
+
+          {/* Research Highlights */}
+          <ResearchHighlightsSection/>
+
+          {/* Cover Arts */}
+          <CoverArtsSection/>
+
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Full
+              list of publications</h2>
           </div>
 
           {/* 연도 필터 */}

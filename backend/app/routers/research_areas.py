@@ -1,3 +1,4 @@
+import re
 import shutil
 from datetime import datetime
 from pathlib import Path
@@ -13,6 +14,10 @@ router = APIRouter(prefix="/api/research-areas", tags=["research-areas"])
 # 업로드 디렉토리 설정
 UPLOAD_DIR = Path("../frontend/static/uploads/icons")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+
+# NEW: 본문 이미지 업로드 디렉토리
+CONTENT_UPLOAD_DIR = Path("../frontend/static/uploads/research-areas")
+CONTENT_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 
 @router.get("/", response_model=List[ResearchArea])
@@ -80,10 +85,29 @@ async def upload_icon(file: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail="File must be an image")
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"{timestamp}_{file.filename}"
+    safe = re.sub(r'[^A-Za-z0-9_.-]', '_', file.filename)
+    filename = f"{timestamp}_{safe}"
     file_path = UPLOAD_DIR / filename
 
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
     return {"icon_path": f"/static/uploads/icons/{filename}"}
+
+
+# NEW: 본문 이미지 업로드
+@router.post("/upload-content-image")
+async def upload_content_image(file: UploadFile = File(...)):
+    if not file.content_type.startswith("image/"):
+        raise HTTPException(status_code=400, detail="File must be an image")
+
+    timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+    safe = re.sub(r'[^A-Za-z0-9_.-]', '_', file.filename)
+    filename = f"{timestamp}_{safe}"
+    file_path = CONTENT_UPLOAD_DIR / filename
+
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    # 프론트에서 Markdown으로 바로 삽입하기 좋은 절대 경로 반환
+    return {"image_path": f"/static/uploads/research-areas/{filename}"}

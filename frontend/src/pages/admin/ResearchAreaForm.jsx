@@ -11,6 +11,9 @@ function ResearchAreaForm({area, onClose, onSave}) {
     is_active: area?.is_active ?? true
   });
   const [uploading, setUploading] = useState(false);
+  const [contentUploading, setContentUploading] = useState(false);
+  const [selection, setSelection] = useState({start: 0, end: 0});
+  const textareaId = "research-area-description-input";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,6 +74,57 @@ function ResearchAreaForm({area, onClose, onSave}) {
     }
   };
 
+  const insertAtCursor = (text) => {
+    const el = document.getElementById(textareaId);
+    if (!el) {
+      setFormData(
+          prev => ({...prev, description: (prev.description || "") + text}));
+      return;
+    }
+    const start = el.selectionStart ?? selection.start ?? 0;
+    const end = el.selectionEnd ?? selection.end ?? 0;
+    const before = formData.description.slice(0, start);
+    const after = formData.description.slice(end);
+    const next = before + text + after;
+    setFormData(prev => ({...prev, description: next}));
+    requestAnimationFrame(() => {
+      const pos = start + text.length;
+      el.focus();
+      el.setSelectionRange(pos, pos);
+    });
+  };
+
+  const handleContentImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      return;
+    }
+    setContentUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch('/api/research-areas/upload-content-image', {
+        method: 'POST',
+        body: fd
+      });
+      if (!res.ok) {
+        throw new Error(
+            `Upload failed: ${res.status} ${res.statusText}`);
+      }
+      const data = await res.json();
+      const alt = file.name.replace(/\.[^.]+$/, '');
+      // Markdown 이미지 문법 자동 삽입
+      insertAtCursor(`\n\n![${alt}](${data.image_path})\n\n`);
+    } catch (err) {
+      console.error('Error uploading content image', err);
+      alert(`Upload failed: ${err.message}`);
+    } finally {
+      setContentUploading(false);
+      // 같은 파일 다시 선택 가능하게 초기화
+      e.target.value = "";
+    }
+  };
+
   return (
       <div
           className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -125,14 +179,49 @@ function ResearchAreaForm({area, onClose, onSave}) {
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Description *
               </label>
+              {/* 본문 이미지 업로드 버튼 */}
+              <div className="flex items-center gap-2 mb-2">
+                <label
+                    className="px-3 py-1.5 border rounded cursor-pointer bg-gray-50 dark:bg-gray-700 text-sm">
+                  Upload Content Image
+                  <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleContentImageUpload}
+                      disabled={contentUploading}
+                      className="hidden"
+                  />
+                </label>
+                {contentUploading && (
+                    <span className="text-sm text-blue-600">Uploading...</span>
+                )}
+                <span className="text-xs text-gray-500">
+                 업로드 후 자동으로 마크다운 이미지(![])가 본문에 삽입됩니다.
+               </span>
+              </div>
               <textarea
                   required
+                  id={textareaId}
                   rows={4}
                   value={formData.description}
                   onChange={(e) => setFormData(
                       {...formData, description: e.target.value})}
+                  onSelect={(e) => {
+                    const t = e.target;
+                    setSelection(
+                        {start: t.selectionStart, end: t.selectionEnd});
+                  }}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  placeholder={`예) 마크다운 지원
+제목은 # 로, 굵게는 **text**, 이미지: ![캡션](/static/uploads/research-areas/파일명.jpg)`}
               />
+              {/* Live 미리보기 (선택 사항): react-markdown 사용 시 활성화
+           <div className="mt-3 prose prose-sm dark:prose-invert max-w-none">
+             <ReactMarkdown remarkPlugins={[remarkGfm]}>
+               {formData.description || ""}
+             </ReactMarkdown>
+           </div>
+           */}
             </div>
 
             <div>

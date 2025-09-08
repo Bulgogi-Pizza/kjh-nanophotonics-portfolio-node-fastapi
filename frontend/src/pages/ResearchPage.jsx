@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import {useNavigate, useParams} from 'react-router-dom';
 
 function ResearchPage() {
   const {slug} = useParams();
+  const navigate = useNavigate();
   const [researchAreas, setResearchAreas] = useState([]);
   const [activeArea, setActiveArea] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,21 +15,32 @@ function ResearchPage() {
     .then(res => res.json())
     .then(data => {
       setResearchAreas(data);
+
+      if (!data?.length) {
+        setActiveArea(null);
+        setLoading(false);
+        return;
+      }
+
       if (slug) {
-        const foundArea = data.find(area => area.slug === slug);
-        if (foundArea) {
-          setActiveArea(foundArea);
+        const found = data.find(a => a.slug === slug);
+        if (found) {
+          setActiveArea(found);
+        } else {
+          setActiveArea(data[0]);
+          navigate(`/research/${data[0].slug}`, {replace: true});
         }
       } else {
         setActiveArea(data[0]);
+        navigate(`/research/${data[0].slug}`, {replace: true});
       }
       setLoading(false);
     })
-    .catch(error => {
-      console.error('Error fetching research areas:', error);
+    .catch(err => {
+      console.error('Error fetching research areas:', err);
       setLoading(false);
     });
-  }, [slug]);
+  }, [slug, navigate]);
 
   if (loading) {
     return (
@@ -61,10 +75,10 @@ function ResearchPage() {
                 {researchAreas.map((area) => (
                     <button
                         key={area.slug}
-                        onClick={() => setActiveArea(area)}
+                        onClick={() => navigate(`/research/${area.slug}`)}
                         className={`flex-1 px-4 py-4 text-sm font-medium transition-all duration-200 
-                md:border-r md:border-b-0 border-b border-gray-200 dark:border-gray-700 
-                md:last:border-r-0 last:border-b-0 break-words ${
+                        md:border-r md:border-b-0 border-b border-gray-200 dark:border-gray-700 
+                        md:last:border-r-0 last:border-b-0 break-words ${
                             activeArea?.id === area.id
                                 ? 'text-white bg-blue-600'
                                 : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700'
@@ -95,10 +109,26 @@ function ResearchPage() {
                     </div>
 
                     <div
-                        className="prose prose-xl dark:prose-invert max-w-none text-center">
-                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg text-left break-words hyphens-auto">
-                        {activeArea.description}
-                      </p>
+                        className="prose prose-xl dark:prose-invert max-w-none text-left">
+                      <ReactMarkdown
+                          remarkPlugins={[remarkGfm]}
+                          components={{
+                            img: ({node, ...props}) => (
+                                <img
+                                    {...props}
+                                    className="mx-auto my-6 rounded shadow max-h-[480px]"
+                                    loading="lazy"
+                                />
+                            ),
+                            a: ({node, ...props}) => (
+                                <a {...props}
+                                   className="text-blue-600 underline"
+                                   target="_blank" rel="noopener noreferrer"/>
+                            )
+                          }}
+                      >
+                        {activeArea.description || ""}
+                      </ReactMarkdown>
                     </div>
                   </div>
                 </div>

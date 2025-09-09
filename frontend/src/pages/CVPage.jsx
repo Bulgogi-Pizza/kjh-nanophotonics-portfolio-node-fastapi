@@ -348,9 +348,9 @@ const AwardItem = ({award}) => (
         <div>
           <span
               className="text-lg font-semibold text-gray-900 dark:text-white">{award.name}</span>
-          {award.details && <em
-              className="text-lg text-gray-900/80 dark:text-white/80">,
-            ({award.details})</em>}
+          {award.details && <span
+              className="text-lg text-gray-900/80 dark:text-white/80">
+            , {award.details}</span>}
           <span
               className="text-lg text-gray-900/80 dark:text-white/80">, {award.year}</span>
         </div>
@@ -365,11 +365,11 @@ const PublicationItem = ({pub}) => (
         <p className="text-lg font-semibold text-gray-900 dark:text-white"> {pub.title}</p>
         <p className="text-lg mt-1 text-gray-900 dark:text-white">
           <span
-              className="text-lg font-bold italic text-red-600">{pub.journal}</span>
+              className="text-lg font-bold italic text-blue-600 dark:text-blue-400">{pub.journal}</span>
           {pub.volume && <span
-              className="text-lg font-bold "> {pub.volume}</span>}
+              className="text-lg font-bold text-blue-600 dark:text-blue-400"> {pub.volume}</span>}
           {pub.pages && <span
-              className="text-lg">, pp. {pub.pages}</span>}
+              className="text-lg">, {pub.pages}</span>}
           {pub.year && <span
               className="text-lg"> ({pub.year})</span>}
           {pub.status && <span

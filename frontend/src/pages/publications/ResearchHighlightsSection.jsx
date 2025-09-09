@@ -79,7 +79,7 @@ export default function ResearchHighlightsSection() {
         <HorizontalGallery
             items={items}
             ariaLabel="Research Highlights"
-            itemClassName="w-[180px]"
+            itemClassName="w-[360px]"
             autoScroll
             autoScrollSpeed={18}
             pauseOnHover
@@ -99,7 +99,7 @@ export default function ResearchHighlightsSection() {
                       src={item.image_path}
                       alt={item.alt_text || item.description
                           || "Research highlight"}
-                      className="w-full h-60 object-cover"
+                      className="w-full h-[234px] object-cover"
                       loading="lazy"
                   />
                   {item.description && (

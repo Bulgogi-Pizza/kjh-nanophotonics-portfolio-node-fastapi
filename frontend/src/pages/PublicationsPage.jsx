@@ -192,7 +192,7 @@ function PublicationsPage() {
                             )}
                             {pub.pages && (
                                 <span
-                                    className="text-blue-600 dark:text-blue-400">
+                                    className="text-gray-700 dark:text-gray-300">
                                   , {pub.pages}
                                 </span>
                             )}

@@ -81,8 +81,10 @@ function PublicationsSection() {
                           className="font-medium italic text-blue-600 dark:text-blue-400">
                         {pub.journal}
                       </span>
+                      {pub.volume && <span
+                          className="font-bold">• {pub.volume}</span>}
+                      {pub.pages && <span>• {pub.pages}</span>}
                       <span>• {pub.year}</span>
-                      {pub.volume && <span>• {pub.volume}</span>}
                     </div>
 
                     {pub.doi && (

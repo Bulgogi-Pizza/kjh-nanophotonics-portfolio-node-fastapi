@@ -251,27 +251,29 @@ const cvData = {
 // --- 재사용 가능한 컴포넌트 영역 ---
 
 const ProfileSection = ({profile}) => (
-    <header className="mb-16 md:mb-20">
+    <header className="mb-12 md:mb-16">
       <div
-          className="flex flex-col lg:flex-row gap-10 lg:gap-12 items-center lg:items-start">
+          className="flex flex-col lg:flex-row gap-6 md:gap-10 items-center lg:items-start">
         <div
-            className="flex-shrink-0 w-64 h-80 shadow-2xl rounded-lg overflow-hidden ring-1 ring-gray-200 dark:ring-gray-700">
+            className="flex-shrink-0 w-40 h-52 sm:w-56 sm:h-72 md:w-64 md:h-80 shadow-2xl rounded-lg overflow-hidden ring-1 ring-gray-200 dark:ring-gray-700">
           <img src="/images/JoohoonKim.jpg" alt={profile.name}
                className="w-full h-full object-cover"/>
         </div>
         <div className="flex-1 text-center lg:text-left">
-          <h1 className="text-5xl lg:text-4xl font-extrabold text-gray-900 dark:text-white">{profile.name}</h1>
-          <p className="mt-3 text-xl lg:text-xl text-blue-600 dark:text-blue-400 font-semibold">{profile.title}</p>
-          <div className="mt-6 space-y-3 text-lg text-gray-900 dark:text-white">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white">{profile.name}</h1>
+          <p className="mt-2 text-base sm:text-lg text-blue-600 dark:text-blue-400 font-semibold">{profile.title}</p>
+          <div
+              className="mt-4 space-y-2 text-sm sm:text-base text-gray-900 dark:text-white">
             <p><strong>Email:</strong> {profile.email}</p>
             <p><strong>Phone:</strong> {profile.phone}</p>
             <p><strong>Office:</strong> {profile.office}</p>
           </div>
-          <div className="mt-4 flex gap-x-5 justify-center lg:justify-start">
+          <div
+              className="mt-3 flex gap-x-4 justify-center lg:justify-start flex-wrap">
             {profile.links.map(link => (
                 <a key={link.name} href={link.url} target="_blank"
                    rel="noopener noreferrer"
-                   className="text-base font-medium underline text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                   className="text-sm sm:text-base font-medium underline text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400">
                   {link.name}
                 </a>
             ))}
@@ -282,25 +284,23 @@ const ProfileSection = ({profile}) => (
 );
 
 const CVSection = ({title, link = null, children}) => (
-    <section>
+    <section className="mb-10 md:mb-12">
       <div className="relative">
-        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 pb-4 border-b-2 border-gray-200 dark:border-gray-700">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3 pb-3 border-b-2 border-gray-200 dark:border-gray-700">
           {title}
         </h2>
         {link && (
-            <Link
-                to={link}
-                className="absolute top-0 right-0 p-3 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                aria-label="View all"
-            >
+            <Link to={link}
+                  className="absolute top-0 right-0 p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                  aria-label="View all">
               <svg className="w-6 h-6" fill="none" stroke="currentColor"
                    viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round"
                       strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/>
               </svg>
-            </Link>)}
+            </Link>
+        )}
       </div>
-
       {children}
     </section>
 );
@@ -310,10 +310,12 @@ const EducationItem = ({edu}) => (
     <ul className="space-y-4 list-disc pl-5">
 
       <li className="mb-4">
-      <span className="text-lg font-semibold text-gray-900 dark:text-white">
+      <span
+          className="text-base md:text-lg font-semibold text-gray-900 dark:text-white">
         {edu.degree}
       </span>
-        <span className="text-lg text-gray-900 dark:text-white mt-1">
+        <span
+            className="text-base md:text-lg text-gray-900 dark:text-white mt-1">
         , {edu.university}, {edu.country} ({edu.from} – {edu.to})
       </span>
       </li>
@@ -325,15 +327,17 @@ const ExperienceItem = ({exp}) => (
     <ul className="space-y-4 list-disc pl-5">
 
       <li className="mb-4">
-      <span className="text-lg font-semibold text-gray-900 dark:text-white">
+      <span
+          className="text-base md:text-lg font-semibold text-gray-900 dark:text-white">
         {exp.role}
       </span>
-        <span className="text-lg text-gray-900 dark:text-white mt-1">
+        <span
+            className="text-base md:text-lg text-gray-900 dark:text-white mt-1">
         , {exp.institution}, {exp.location} ({exp.period})
       </span>
         {exp.description && (
             <p
-                className="text-lg text-gray-900/80 dark:text-white/80 mt-1 italic">
+                className="text-base md:text-lg text-gray-900/80 dark:text-white/80 mt-1 italic">
               {exp.description}
             </p>
         )}
@@ -347,12 +351,12 @@ const AwardItem = ({award}) => (
       <li className="mb-4">
         <div>
           <span
-              className="text-lg font-semibold text-gray-900 dark:text-white">{award.name}</span>
+              className="text-base md:text-lg font-semibold text-gray-900 dark:text-white">{award.name}</span>
           {award.details && <span
-              className="text-lg text-gray-900/80 dark:text-white/80">
+              className="text-base md:text-lg text-gray-900/80 dark:text-white/80">
             , {award.details}</span>}
           <span
-              className="text-lg text-gray-900/80 dark:text-white/80">, {award.year}</span>
+              className="text-base md:text-lg text-gray-900/80 dark:text-white/80">, {award.year}</span>
         </div>
       </li>
     </ul>
@@ -362,20 +366,20 @@ const AwardItem = ({award}) => (
 const PublicationItem = ({pub}) => (
     <ul className="space-y-4 list-disc pl-5">
       <li className="mb-4">
-        <p className="text-lg font-semibold text-gray-900 dark:text-white"> {pub.title}</p>
-        <p className="text-lg mt-1 text-gray-900 dark:text-white">
+        <p className="text-base md:text-lg font-semibold text-gray-900 dark:text-white"> {pub.title}</p>
+        <p className="text-base md:text-lg mt-1 text-gray-900 dark:text-white">
           <span
-              className="text-lg font-bold italic text-blue-600 dark:text-blue-400">{pub.journal}</span>
+              className="text-base md:text-lg font-bold italic text-blue-600 dark:text-blue-400">{pub.journal}</span>
           {pub.volume && <span
-              className="text-lg font-bold text-blue-600 dark:text-blue-400"> {pub.volume}</span>}
+              className="text-base md:text-lg font-bold text-blue-600 dark:text-blue-400"> {pub.volume}</span>}
           {pub.pages && <span
-              className="text-lg">, {pub.pages}</span>}
+              className="text-base md:text-lg">, {pub.pages}</span>}
           {pub.year && <span
-              className="text-lg"> ({pub.year})</span>}
+              className="text-base md:text-lg"> ({pub.year})</span>}
           {pub.status && <span
-              className="text-lg"> [{pub.status}]</span>}
+              className="text-base md:text-lg"> [{pub.status}]</span>}
           {pub.if && <span
-              className="text-lg font-bold ml-2">[IF: {pub.if}]</span>}
+              className="text-base md:text-lg font-bold ml-2">[IF: {pub.if}]</span>}
         </p>
       </li>
     </ul>
@@ -392,10 +396,10 @@ const ServiceItem = ({service}) => {
 
   return (
       <li className="mb-4">
-        <p className="text-lg font-semibold text-gray-900 dark:text-white">
+        <p className="text-base md:text-lg font-semibold text-gray-900 dark:text-white">
           {renderTitle(service.title)}
         </p>
-        <p className="text-lg text-gray-900/80 dark:text-white/80 mt-1">
+        <p className="text-base md:text-lg text-gray-900/80 dark:text-white/80 mt-1">
           {service.description}
         </p>
       </li>
@@ -407,7 +411,7 @@ function CVPage() {
   return (
       <div className="bg-white dark:bg-gray-900 min-h-screen font-noto">
         <div
-            className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl py-16 sm:py-20 lg:py-24">
+            className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl py-12 sm:py-16 lg:py-20">
           <ProfileSection profile={cvData.profile}/>
           <main className="space-y-16">
             <CVSection title="Education">

@@ -78,43 +78,35 @@ function HeroSection() {
   }
 
   return (
-      <section className="relative min-h-screen flex items-center pt-16">
+      <section
+          className="relative min-h-[70vh] md:min-h-screen flex items-center pt-16">
         <div
-            className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-900 dark:to-blue-900/20"></div>
-
-        <div className="relative container mx-auto px-6 lg:px-8 py-20">
-          <div className="grid lg:grid-cols-9 gap-16 items-center">
+            className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+          <div className="grid lg:grid-cols-9 gap-8 md:gap-16 items-center">
 
             {/* 좌측: 인삿말 섹션 */}
-            <div className="space-y-8 lg:col-span-4">
-              <div className="space-y-6">
-                <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
-                  Welcome to{' '}
-                  <span
-                      className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                  Joohoon Kim's
-                </span>{' '}
-                  Research
-                </h1>
-
-                <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-                  I am Ph.D. student at Pohang University of Science and
-                  Technology (POSTECH), working under the supervision of Prof.
-                  Junsuk Rho at the Nanoscale photonics & integrated
-                  manufacturing lab. My research focuses on innovating
-                  nanofabrication techniques for the scalable manufacturing of
-                  metasurfaces, with particular interest in their practical
-                  applications such as VR/AR, light-field displays, and optical
-                  computing.
-                </p>
-              </div>
+            <div className="space-y-5 md:space-y-8 lg:col-span-4">
+              <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight tracking-tight">
+                Welcome to <span
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Joohoon Kim's</span> Research
+              </h1>
+              <p className="text-base md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+                I am Ph.D. student at Pohang University of Science and
+                Technology (POSTECH), working under the supervision of Prof.
+                Junsuk Rho at the Nanoscale photonics & integrated
+                manufacturing lab. My research focuses on innovating
+                nanofabrication techniques for the scalable manufacturing of
+                metasurfaces, with particular interest in their practical
+                applications such as VR/AR, light-field displays, and optical
+                computing.
+              </p>
             </div>
 
             {/* 우측: 갤러리 및 논문 인용구 섹션 */}
             <div className="relative lg:col-span-5">
               {representativeWorks.length > 0 && currentWork && (
                   <div
-                      className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800">
+                      className="relative aspect-[4/3] rounded-xl md:rounded-2xl overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800">
                     {/* 이미지 슬라이더 */}
                     {representativeWorks.map((work, index) => (
                         <div
@@ -215,7 +207,8 @@ function HeroSection() {
 
               {/* 갤러리 인디케이터 */}
               {representativeWorks.length > 0 && (
-                  <div className="flex justify-center space-x-3 mt-6">
+                  <div
+                      className="flex justify-center space-x-2 md:space-x-3 mt-4 md:mt-6">
                     {representativeWorks.map((_, index) => (
                         <button
                             key={index}

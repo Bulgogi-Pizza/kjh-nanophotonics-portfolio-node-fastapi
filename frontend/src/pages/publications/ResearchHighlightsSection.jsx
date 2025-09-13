@@ -2,40 +2,19 @@ import React, {useEffect, useState} from "react";
 import HorizontalGallery from "../../components/HorizontalGallery";
 import {useNavigate} from "react-router-dom";
 
-const normalizeLink = (href = "") => {
-  if (!href) {
-    return "";
-  }
-  const t = href.trim();
-  if (/^mailto:|^tel:/i.test(t)) {
-    return t;
-  }
-  if (/^https?:\/\//i.test(t)) {
-    return t;
-  }
-  if (t.startsWith("//")) {
-    return `${window.location.protocol}${t}`;
-  }
-  if (/^[\w.-]+\.[a-z]{2,}([/:?#].*)?$/i.test(t)) {
-    return `https://${t}`;
-  }
-  return t;
-};
-const isExternal = (href = "") =>
-    /^https?:\/\//i.test(normalizeLink(href)) || /^mailto:|^tel:/i.test(
-        href.trim());
+const isExternal = (href = "") => /^https?:\/\//i.test(href) || href.startsWith(
+    "mailto:") || href.startsWith("tel:");
 
 function useCardLink() {
-  const navigate = useNavigate();
+  const nav = useNavigate();
   const openLink = (link) => {
     if (!link) {
       return;
     }
-    const target = normalizeLink(link);
-    if (isExternal(target)) {
-      window.open(target, "_blank", "noopener");
+    if (isExternal(link)) {
+      window.open(link, "_blank", "noopener");
     } else {
-      navigate(target.startsWith("/") ? target : `/${target}`);
+      nav(link.startsWith("/") ? link : `/${link}`);
     }
   };
   const keyActivate = (e, link) => {
@@ -54,15 +33,11 @@ export default function ResearchHighlightsSection() {
 
   useEffect(() => {
     fetch("/api/research-highlights/?active_only=1")
-    .then((r) => r.json())
-    .then((data) => {
-      setItems(data);
+    .then(r => r.json()).then(d => {
+      setItems(d);
       setLoading(false);
     })
-    .catch((e) => {
-      console.error(e);
-      setLoading(false);
-    });
+    .catch(() => setLoading(false));
   }, []);
 
   if (loading || items.length === 0) {
@@ -70,26 +45,25 @@ export default function ResearchHighlightsSection() {
   }
 
   return (
-      <section className="mb-16">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Research
+      <section className="mb-12 sm:mb-16">
+        <div className="text-center mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Research
             Highlights</h2>
         </div>
 
         <HorizontalGallery
             items={items}
             ariaLabel="Research Highlights"
-            itemClassName="w-[360px]"
+            // 작게: w-40 / 중간: w-52 / 큰화면: w-60
+            itemClassName="w-40 sm:w-52 md:w-60"
             autoScroll
-            autoScrollSpeed={18}
+            autoScrollSpeed={16}
             pauseOnHover
             loop
             renderItem={(item) => (
                 <div
                     role={item.link ? "link" : undefined}
                     tabIndex={item.link ? 0 : -1}
-                    aria-label={item.link ? `${item.description || "open"}`
-                        : undefined}
                     onClick={() => item.link && openLink(item.link)}
                     onKeyDown={(e) => item.link && keyActivate(e, item.link)}
                     className={`block bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow transition ${item.link
@@ -99,12 +73,12 @@ export default function ResearchHighlightsSection() {
                       src={item.image_path}
                       alt={item.alt_text || item.description
                           || "Research highlight"}
-                      className="w-full h-[234px] object-cover"
+                      className="w-full h-40 sm:h-52 md:h-60 object-cover"
                       loading="lazy"
                   />
                   {item.description && (
                       <div
-                          className="p-4 text-sm text-gray-700 dark:text-gray-300 min-h-[56px]">
+                          className="p-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300 min-h-[44px] sm:min-h-[56px] safe-wrap">
                         {item.description}
                       </div>
                   )}

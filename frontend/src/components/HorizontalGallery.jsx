@@ -1,13 +1,13 @@
 import React, {useEffect, useMemo, useRef, useState} from "react";
 
-export default function HorizontalGallery({
+function HorizontalGallery({
   items = [],
   renderItem,
   className = "",
   itemClassName = "",
   ariaLabel = "Horizontal gallery",
   autoScroll = false,
-  autoScrollSpeed = 20, // px/sec
+  autoScrollSpeed = 20,
   pauseOnHover = false,
   loop = false,
 }) {
@@ -18,11 +18,9 @@ export default function HorizontalGallery({
   const pausedRef = useRef(false);
   const [hovered, setHovered] = useState(false);
 
-  // overflow 측정 및 루프 여부 결정
   const [isOverflowing, setIsOverflowing] = useState(false);
   const [shouldDuplicate, setShouldDuplicate] = useState(false);
 
-  // 접근성: reduce motion이면 자동 스크롤 비활성
   const prefersReduced =
       typeof window !== "undefined" &&
       window.matchMedia &&
@@ -30,7 +28,6 @@ export default function HorizontalGallery({
 
   const shouldAutoScroll = autoScroll && !prefersReduced && isOverflowing;
 
-  // 첫 렌더에서 overflow 계산 → overflow일 때만 duplication
   useEffect(() => {
     const el = ref.current;
     if (!el) {
@@ -46,10 +43,10 @@ export default function HorizontalGallery({
 
   const effectiveLoop = loop && shouldDuplicate;
 
-  // 렌더 아이템
   const renderItems = useMemo(() => {
     if (!effectiveLoop) {
-      return items.map((it, idx) => ({it, key: it.id ?? idx}));
+      return items.map(
+          (it, idx) => ({it, key: it.id ?? idx}));
     }
     const doubled = [...items, ...items];
     return doubled.map((it, idx) => ({
@@ -58,10 +55,8 @@ export default function HorizontalGallery({
     }));
   }, [items, effectiveLoop]);
 
-  // 좌우 버튼 상태
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
-
   const updateEdges = () => {
     const el = ref.current;
     if (!el) {
@@ -88,7 +83,6 @@ export default function HorizontalGallery({
     return () => el.removeEventListener("scroll", onScroll);
   }, [renderItems.length, effectiveLoop]);
 
-  // Hover pause
   useEffect(() => {
     pausedRef.current = pauseOnHover && hovered;
   }, [hovered, pauseOnHover]);
@@ -102,13 +96,11 @@ export default function HorizontalGallery({
     el.scrollBy({left: amount * dir, behavior: "smooth"});
   };
 
-  // Auto scroll
   useEffect(() => {
     const el = ref.current;
     if (!el || !shouldAutoScroll || items.length === 0) {
       return;
     }
-
     if (effectiveLoop) {
       el.scrollLeft = 0;
     }
@@ -131,7 +123,6 @@ export default function HorizontalGallery({
         const delta = autoScrollSpeed * dt * (effectiveLoop ? 1
             : dirRef.current);
         el.scrollLeft += delta;
-
         const {scrollLeft, scrollWidth, clientWidth} = el;
         if (effectiveLoop) {
           const half = (scrollWidth - clientWidth) / 2 + 1;
@@ -165,20 +156,22 @@ export default function HorizontalGallery({
           onMouseEnter={() => pauseOnHover && setHovered(true)}
           onMouseLeave={() => pauseOnHover && setHovered(false)}
       >
+        {/* Left */}
         <button
             type="button"
             aria-label="Scroll left"
             onClick={() => scrollByPage(-1)}
             disabled={atStart}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 rounded-full p-2 bg-white/80 dark:bg-gray-900/80 border border-gray-200 dark:border-gray-700 shadow ${atStart
+            className={`absolute left-1 sm:left-0 top-1/2 -translate-y-1/2 z-10 rounded-full p-1.5 sm:p-2 dark:text-gray-300 bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-200 shadow ${atStart
                 ? "opacity-40 cursor-not-allowed" : "hover:bg-white"}`}
         >
           ◀
         </button>
 
+        {/* Track */}
         <div ref={ref} className="overflow-x-auto snap-x snap-mandatory"
              style={{scrollBehavior: "smooth"}}>
-          <div className="flex gap-6 px-10 py-2">
+          <div className="flex gap-4 sm:gap-6 px-4 sm:px-10 py-2">
             {renderItems.map(({it, key}) => (
                 <div key={key}
                      className={`snap-start flex-shrink-0 ${itemClassName}`}
@@ -189,12 +182,13 @@ export default function HorizontalGallery({
           </div>
         </div>
 
+        {/* Right */}
         <button
             type="button"
             aria-label="Scroll right"
             onClick={() => scrollByPage(1)}
             disabled={atEnd}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 rounded-full p-2 bg-white/80 dark:bg-gray-900/80 border border-gray-200 dark:border-gray-700 shadow ${atEnd
+            className={`absolute right-1 sm:right-0 top-1/2 -translate-y-1/2 z-10 rounded-full p-1.5 sm:p-2 dark:text-gray-300 bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-200 shadow ${atEnd
                 ? "opacity-40 cursor-not-allowed" : "hover:bg-white"}`}
         >
           ▶
@@ -202,3 +196,5 @@ export default function HorizontalGallery({
       </div>
   );
 }
+
+export default HorizontalGallery;

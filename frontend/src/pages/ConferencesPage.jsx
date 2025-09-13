@@ -103,9 +103,7 @@ function ConferencesPage() {
 
           {/* 페이지 헤더 */}
           <div className="mb-8 text-center">
-            <h1 className="text-6xl font-bold text-gray-900 dark:text-white mb-6">
-              Conferences
-            </h1>
+            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">Conferences</h1>
           </div>
 
           {/* 총 학회 수 표시 */}
@@ -116,32 +114,23 @@ function ConferencesPage() {
           </div>
 
           {/* Conferences 목록 */}
-          <div className="space-y-4">
+          <div className="space-y-1">
             {sortedConferences.map((conference, index) => (
                 <article
-                    key={conference.id}
-                    className="flex gap-4 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-all duration-200"
-                >
-                  {/* 왼쪽 넘버링 */}
+                    className="flex gap-3 sm:gap-4 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-all duration-200 py-4 px-2">
                   <div
-                      className="w-16 flex-shrink-0 flex items-start justify-center pt-3">
+                      className="w-8 sm:w-10 flex-shrink-0 flex items-start justify-center pt-1.5">
                     <span
-                        className="text-xl font-bold text-gray-900 dark:text-white">
-                      {index + 1}
-                    </span>
+                        className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">{index
+                        + 1}</span>
                   </div>
-
-                  {/* 오른쪽 학회 정보 영역 */}
-                  <div className="flex-1 py-3">
-
-                    {/* 첫 번째 행: Conference Name */}
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">
+                  <div className="flex-1">
+                    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-1 leading-snug safe-wrap">
                       {conference.conference_name}
                     </h3>
-
-                    {/* 두 번째 행: location, month, year, presentation_type, award */}
                     <div
-                        className="flex flex-wrap items-center gap-2 text-gray-600 dark:text-gray-300">
+                        className="flex flex-wrap items-center gap-2 text-sm sm:text-base text-gray-600 dark:text-gray-300">
+
                       {/* Location */}
                       <span>{conference.location}</span>
 

@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import HorizontalGallery from "../components/HorizontalGallery";
 import {useNavigate} from "react-router-dom";
 
-// 외부/내부 링크 판별 + 보정
 const normalizeLink = (href = "") => {
   if (!href) {
     return "";
@@ -20,14 +19,13 @@ const normalizeLink = (href = "") => {
   if (/^[\w.-]+\.[a-z]{2,}([/:?#].*)?$/i.test(t)) {
     return `https://${t}`;
   }
-  return t; // 내부 경로로 취급
+  return t;
 };
-const isExternal = (href = "") =>
-    /^https?:\/\//i.test(normalizeLink(href)) || /^mailto:|^tel:/i.test(
-        href.trim());
+const isExternal = (href = "") => /^https?:\/\//i.test(normalizeLink(href))
+    || /^mailto:|^tel:/i.test(href.trim());
 
 function useCardLink() {
-  const navigate = useNavigate();
+  const nav = useNavigate();
   const openLink = (link) => {
     if (!link) {
       return;
@@ -36,7 +34,7 @@ function useCardLink() {
     if (isExternal(target)) {
       window.open(target, "_blank", "noopener");
     } else {
-      navigate(target.startsWith("/") ? target : `/${target}`);
+      nav(target.startsWith("/") ? target : `/${target}`);
     }
   };
   const keyActivate = (e, link) => {
@@ -55,58 +53,49 @@ export default function CoverArtsSection() {
 
   useEffect(() => {
     fetch("/api/cover-arts/?active_only=1")
-    .then((r) => r.json())
-    .then((data) => {
-      setItems(data || []);
+    .then(r => r.json()).then(d => {
+      setItems(d || []);
       setLoading(false);
     })
-    .catch((e) => {
-      console.error("Cover arts fetch error:", e);
-      setLoading(false);
-    });
+    .catch(() => setLoading(false));
   }, []);
 
   if (loading || items.length === 0) {
-    return null; // 데이터 없으면 홈에서 섹션 감춤
+    return null;
   }
 
   return (
-      <section className="py-24 bg-white dark:bg-gray-900">
-        <div className="container mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-              Cover Arts
-            </h2>
-            {/* 필요하면 전체보기 링크 추가 가능:
-          <Link to="/publications#cover-arts" className="text-blue-600">See all</Link> */}
+      <section className="py-16 sm:py-20 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Cover
+              Arts</h2>
           </div>
 
           <HorizontalGallery
               items={items}
               ariaLabel="Cover Arts"
-              itemClassName="w-[360px]"
+              // 모바일 작게 보이도록
+              itemClassName="w-40 sm:w-52 md:w-64"
               autoScroll
-              autoScrollSpeed={18}
+              autoScrollSpeed={16}
               pauseOnHover
               loop
               renderItem={(item) => (
                   <div
                       role={item.link ? "link" : undefined}
                       tabIndex={item.link ? 0 : -1}
-                      aria-label={item.link ? `${item.description || "open"}`
-                          : undefined}
                       onClick={() => item.link && openLink(item.link)}
                       onKeyDown={(e) => item.link && keyActivate(e, item.link)}
-                      className={`block bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden shadow transition ${
-                          item.link ? "hover:shadow-md cursor-pointer"
-                              : "cursor-default"
-                      }`}
+                      className={`block bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden shadow transition ${item.link
+                          ? "hover:shadow-md cursor-pointer"
+                          : "cursor-default"}`}
                   >
                     <img
                         src={item.image_path}
                         alt={item.alt_text || item.description
                             || `${item.journal} cover art`}
-                        className="w-full h-[460px] object-cover"
+                        className="w-full h-56 sm:h-64 md:h-72 object-cover"
                         loading="lazy"
                     />
                   </div>

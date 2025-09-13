@@ -38,13 +38,11 @@ function ResearchSection() {
         <div className="container mx-auto px-6 lg:px-8">
           {/* 섹션 제목 */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Research
-            </h2>
+            <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">Research</h2>
           </div>
 
           {/* 연구 주제 카드들 */}
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {researchAreas.map((area) => (
                 <div
                     key={area.id}
@@ -58,7 +56,7 @@ function ResearchSection() {
                             `/research/${area.slug}`);
                       }
                     }}
-                    className="group bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="group bg-gray-50 dark:bg-gray-900 rounded-2xl p-4 sm:p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   {/* 아이콘 */}
                   {area.icon_path && (
@@ -75,7 +73,7 @@ function ResearchSection() {
                   )}
 
                   {/* 제목 */}
-                  <h3 className="text-xl font-bold break-normal text-gray-900 dark:text-white mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  <h3 className="text-md sm:text-xl font-bold break-normal text-gray-900 dark:text-white mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     {area.title}
                   </h3>
 

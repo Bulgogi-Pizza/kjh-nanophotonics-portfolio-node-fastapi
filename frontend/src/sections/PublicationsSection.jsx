@@ -38,9 +38,8 @@ function PublicationsSection() {
           {/* 섹션 헤더 */}
           <div className="relative mb-16">
             <div className="text-center">
-              <h2 className="text-5xl font-bold text-gray-900 dark:text-white">
-                Publications
-              </h2>
+              <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white">Publications</h2>
+
             </div>
 
             {/* 우측 햄버거 버튼 */}
@@ -67,16 +66,14 @@ function PublicationsSection() {
 
                   {/* 오른쪽 논문 정보 */}
                   <div className="flex-1 py-2">
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
+                    <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-snug">
                       {pub.title}
                     </h3>
 
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-1">
-                      {pub.authors}
-                    </p>
-
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-1">{pub.authors}</p>
                     <div
-                        className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-2">
+                        className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2">
+
                       <span
                           className="font-medium italic text-blue-600 dark:text-blue-400">
                         {pub.journal}

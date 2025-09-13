@@ -62,7 +62,7 @@ function ResearchPage() {
 
           {/* 페이지 헤더 */}
           <div className="mb-12 text-center">
-            <h1 className="text-6xl font-bold text-gray-900 dark:text-white mb-8">
+            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
               Research
             </h1>
           </div>
@@ -96,33 +96,28 @@ function ResearchPage() {
             </nav>
           </div>
 
-          {/* 활성화된 연구 분야 내용 */}
           {activeArea && (
               <div className="max-w-5xl mx-auto">
                 <div className="bg-white dark:bg-gray-800 shadow-sm">
-                  <div className="px-12 py-16">
-                    <div className="text-center mb-12">
-                      <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                        {activeArea.title}
-                      </h2>
-                      <div className="w-16 h-1 bg-blue-600 mx-auto"></div>
+                  <div className="px-5 sm:px-12 py-10 sm:py-16">
+                    <div className="text-center mb-8 sm:mb-12">
+                      <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">{activeArea.title}</h2>
+                      <div className="w-12 sm:w-16 h-1 bg-blue-600 mx-auto"/>
                     </div>
 
                     <div
-                        className="prose prose-xl dark:prose-invert max-w-none text-left">
+                        className="prose prose-base sm:prose-lg md:prose-xl dark:prose-invert max-w-none text-left">
                       <ReactMarkdown
                           remarkPlugins={[remarkGfm]}
                           components={{
                             img: ({node, ...props}) => (
-                                <img
-                                    {...props}
-                                    className="mx-auto my-6 rounded shadow max-h-[480px]"
-                                    loading="lazy"
-                                />
+                                <img {...props}
+                                     className="mx-auto my-4 sm:my-6 rounded shadow max-h-64 sm:max-h-96"
+                                     loading="lazy"/>
                             ),
                             a: ({node, ...props}) => (
                                 <a {...props}
-                                   className="text-blue-600 underline"
+                                   className="text-blue-600 underline break-words"
                                    target="_blank" rel="noopener noreferrer"/>
                             )
                           }}

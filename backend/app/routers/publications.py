@@ -3,6 +3,7 @@ from typing import List, Optional
 
 from app.database import get_db
 from app.models import Publication
+from app.security.security import require_admin
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
@@ -80,7 +81,9 @@ def get_publication(publication_id: int, db: Session = Depends(get_db)):
 
 # Admin CRUD operations
 @router.post("/", response_model=Publication)
-def create_publication(publication: Publication, db: Session = Depends(get_db)):
+def create_publication(publication: Publication, db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     publication.updated_at = datetime.utcnow()
     db.add(publication)
     db.commit()
@@ -90,7 +93,9 @@ def create_publication(publication: Publication, db: Session = Depends(get_db)):
 
 @router.put("/{publication_id}", response_model=Publication)
 def update_publication(publication_id: int, publication: Publication,
-    db: Session = Depends(get_db)):
+    db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     db_publication = db.query(Publication).filter(
         Publication.id == publication_id).first()
     if not db_publication:
@@ -107,7 +112,9 @@ def update_publication(publication_id: int, publication: Publication,
 
 
 @router.delete("/{publication_id}")
-def delete_publication(publication_id: int, db: Session = Depends(get_db)):
+def delete_publication(publication_id: int, db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     publication = db.query(Publication).filter(
         Publication.id == publication_id).first()
     if not publication:

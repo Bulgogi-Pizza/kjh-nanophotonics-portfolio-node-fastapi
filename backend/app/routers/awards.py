@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from ..database import get_db
 from ..models import Award
+from ..security.security import require_admin
 
 router = APIRouter(prefix="/api/awards", tags=["awards"])
 
@@ -15,7 +16,11 @@ def get_awards(db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=Award)
-def create_award(award: Award, db: Session = Depends(get_db)):
+def create_award(
+    award: Award,
+    db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     db.add(award)
     db.commit()
     db.refresh(award)
@@ -23,7 +28,12 @@ def create_award(award: Award, db: Session = Depends(get_db)):
 
 
 @router.put("/{award_id}", response_model=Award)
-def update_award(award_id: int, award: Award, db: Session = Depends(get_db)):
+def update_award(
+    award_id: int,
+    award: Award,
+    db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     db_award = db.query(Award).filter(Award.id == award_id).first()
     if not db_award:
         raise HTTPException(status_code=404, detail="Award not found")
@@ -37,7 +47,11 @@ def update_award(award_id: int, award: Award, db: Session = Depends(get_db)):
 
 
 @router.delete("/{award_id}")
-def delete_award(award_id: int, db: Session = Depends(get_db)):
+def delete_award(
+    award_id: int,
+    db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     award = db.query(Award).filter(Award.id == award_id).first()
     if not award:
         raise HTTPException(status_code=404, detail="Award not found")

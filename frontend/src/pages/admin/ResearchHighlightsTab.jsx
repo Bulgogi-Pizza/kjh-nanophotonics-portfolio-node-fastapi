@@ -22,6 +22,7 @@ export default function ResearchHighlightsTab({items = [], onUpdate}) {
     const res = await fetch("/api/research-highlights/upload-image", {
       method: "POST",
       body: fd,
+      credentials: "include",
     });
     if (!res.ok) {
       setUploading(false);
@@ -50,6 +51,7 @@ export default function ResearchHighlightsTab({items = [], onUpdate}) {
         order_index: Number(form.order_index) || 0,
         is_active: !!form.is_active,
       }),
+      credentials: "include",
     });
     // reset
     setForm({
@@ -69,6 +71,7 @@ export default function ResearchHighlightsTab({items = [], onUpdate}) {
       method: "PUT",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(patch),
+      credentials: "include",
     });
     onUpdate && onUpdate();
   };
@@ -77,7 +80,10 @@ export default function ResearchHighlightsTab({items = [], onUpdate}) {
     if (!window.confirm("Delete this item?")) {
       return;
     }
-    await fetch(`/api/research-highlights/${id}`, {method: "DELETE"});
+    await fetch(`/api/research-highlights/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
     onUpdate && onUpdate();
   };
 

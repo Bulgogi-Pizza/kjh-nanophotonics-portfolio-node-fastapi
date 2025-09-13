@@ -15,7 +15,8 @@ function RepresentativeWorksTab({works, onUpdate}) {
     if (window.confirm('Are you sure you want to delete this work?')) {
       try {
         const response = await fetch(`/api/representative-works/${workId}`, {
-          method: 'DELETE'
+          method: 'DELETE',
+          credentials: "include",
         });
         if (response.ok) {
           onUpdate();

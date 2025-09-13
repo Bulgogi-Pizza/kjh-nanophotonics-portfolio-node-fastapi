@@ -6,6 +6,7 @@ from typing import List
 
 from app.database import get_db
 from app.models import ResearchArea
+from app.security.security import require_admin
 from fastapi import APIRouter, Depends, HTTPException, File, UploadFile
 from sqlalchemy.orm import Session
 
@@ -41,7 +42,9 @@ def get_research_area(slug: str, db: Session = Depends(get_db)):
 
 @router.post("/", response_model=ResearchArea)
 def create_research_area(area_data: ResearchArea,
-    db: Session = Depends(get_db)):
+    db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     area_data.updated_at = datetime.utcnow()
     db.add(area_data)
     db.commit()
@@ -53,7 +56,9 @@ def create_research_area(area_data: ResearchArea,
 def update_research_area(
     area_id: int,
     area_data: ResearchArea,
-    db: Session = Depends(get_db)):
+    db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     area = db.query(ResearchArea).filter(ResearchArea.id == area_id).first()
     if not area:
         raise HTTPException(status_code=404, detail="Research area not found")
@@ -69,7 +74,11 @@ def update_research_area(
 
 
 @router.delete("/{area_id}")
-def delete_research_area(area_id: int, db: Session = Depends(get_db)):
+def delete_research_area(
+    area_id: int,
+    db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     area = db.query(ResearchArea).filter(ResearchArea.id == area_id).first()
     if not area:
         raise HTTPException(status_code=404, detail="Research area not found")
@@ -80,7 +89,10 @@ def delete_research_area(area_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/upload-icon")
-async def upload_icon(file: UploadFile = File(...)):
+async def upload_icon(file: UploadFile = File(...),
+    admin: bool = Depends(require_admin)
+
+):
     if not file.content_type.startswith('image/'):
         raise HTTPException(status_code=400, detail="File must be an image")
 
@@ -97,7 +109,9 @@ async def upload_icon(file: UploadFile = File(...)):
 
 # NEW: 본문 이미지 업로드
 @router.post("/upload-content-image")
-async def upload_content_image(file: UploadFile = File(...)):
+async def upload_content_image(file: UploadFile = File(...),
+    admin: bool = Depends(require_admin)
+):
     if not file.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="File must be an image")
 

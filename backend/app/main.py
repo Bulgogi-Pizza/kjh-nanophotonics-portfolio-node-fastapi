@@ -1,3 +1,4 @@
+import os
 from contextlib import asynccontextmanager
 
 from app import models  # 모든 모델을 import하여 테이블이 생성되도록 함
@@ -6,10 +7,16 @@ from app.database import create_db_and_tables, test_db_connection
 # 라우터 import
 from app.routers import publications, education, experience, awards, \
     conferences, media, representative_works, research_areas, cv_markdown, cv, \
-    research_highlights, cover_arts
+    research_highlights, cover_arts, auth
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from starlette.middleware.sessions import SessionMiddleware
+
+load_dotenv()
+FRONTEND_ORIGIN = os.getenv("FRONTEND_ORIGIN")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 
 @asynccontextmanager
@@ -38,10 +45,19 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+# 쿠키 세션
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=SECRET_KEY,
+    same_site="lax",
+    https_only=True,
+    session_cookie="admin_sess"
+)
+
 # CORS 미들웨어 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 프로덕션에서는 구체적인 도메인을 지정하세요
+    allow_origins=[FRONTEND_ORIGIN],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -60,6 +76,7 @@ app.include_router(cv_markdown.router)
 app.include_router(cv.router)
 app.include_router(research_highlights.router)
 app.include_router(cover_arts.router)
+app.include_router(auth.router)
 
 # 정적 파일 서빙
 app.mount("/static", StaticFiles(directory="static"), name="static")

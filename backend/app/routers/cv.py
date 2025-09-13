@@ -3,6 +3,7 @@ import shutil
 from datetime import datetime
 from typing import List, Optional
 
+from app.security.security import require_admin
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlmodel import Session, select, SQLModel
 
@@ -92,7 +93,8 @@ async def get_active_cv_profile(session: Session = Depends(get_db)):
 @router.post("/profile", response_model=CVProfileResponse)
 async def create_or_update_cv_profile(
     profile_data: CVProfileCreate,
-    session: Session = Depends(get_db)
+    session: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
 
 ):
     # 기존 활성 프로필 비활성화
@@ -144,7 +146,8 @@ async def create_or_update_cv_profile(
 
 # 프로필 이미지 업로드
 @router.post("/upload-image")
-async def upload_profile_image(file: UploadFile = File(...)):
+async def upload_profile_image(file: UploadFile = File(...),
+    admin: bool = Depends(require_admin)):
     # 업로드 디렉토리 생성
     upload_dir = "../frontend/static/uploads/profiles"
     os.makedirs(upload_dir, exist_ok=True)
@@ -160,7 +163,8 @@ async def upload_profile_image(file: UploadFile = File(...)):
 
 # 기존 마크다운 CV와의 호환성 유지
 @router.get("/markdown/active")
-async def get_active_markdown_cv(session: Session = Depends(get_db)):
+async def get_active_markdown_cv(session: Session = Depends(get_db)
+):
     statement = select(MarkdownCV).where(MarkdownCV.is_active == True).order_by(
         MarkdownCV.version.desc())
     cv = session.exec(statement).first()
@@ -178,7 +182,8 @@ async def create_markdown_cv(
     title: str,
     content: str,
     description: Optional[str] = None,
-    session: Session = Depends(get_db)
+    session: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
 ):
     # 기존 활성 CV 비활성화
     existing_cvs = session.exec(

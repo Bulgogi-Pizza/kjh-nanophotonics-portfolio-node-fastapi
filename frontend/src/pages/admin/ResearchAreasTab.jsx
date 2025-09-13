@@ -15,7 +15,8 @@ function ResearchAreasTab({areas, onUpdate}) {
     if (window.confirm('Are you sure you want to delete this research area?')) {
       try {
         const response = await fetch(`/api/research-areas/${areaId}`, {
-          method: 'DELETE'
+          method: 'DELETE',
+          credentials: "include",
         });
         if (response.ok) {
           onUpdate();

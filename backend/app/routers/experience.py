@@ -1,5 +1,6 @@
 from typing import List
 
+from app.security.security import require_admin
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -15,7 +16,8 @@ def get_experience(db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=Experience)
-def create_experience(experience: Experience, db: Session = Depends(get_db)):
+def create_experience(experience: Experience, db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)):
     db.add(experience)
     db.commit()
     db.refresh(experience)
@@ -24,7 +26,9 @@ def create_experience(experience: Experience, db: Session = Depends(get_db)):
 
 @router.put("/{experience_id}", response_model=Experience)
 def update_experience(experience_id: int, experience: Experience,
-    db: Session = Depends(get_db)):
+    db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     db_experience = db.query(Experience).filter(
         Experience.id == experience_id).first()
     if not db_experience:
@@ -39,7 +43,9 @@ def update_experience(experience_id: int, experience: Experience,
 
 
 @router.delete("/{experience_id}")
-def delete_experience(experience_id: int, db: Session = Depends(get_db)):
+def delete_experience(experience_id: int, db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     experience = db.query(Experience).filter(
         Experience.id == experience_id).first()
     if not experience:

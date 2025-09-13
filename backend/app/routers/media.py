@@ -1,5 +1,6 @@
 from typing import List
 
+from app.security.security import require_admin
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -15,7 +16,9 @@ def get_media(db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=Media)
-def create_media(media: Media, db: Session = Depends(get_db)):
+def create_media(media: Media, db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     db.add(media)
     db.commit()
     db.refresh(media)
@@ -23,7 +26,9 @@ def create_media(media: Media, db: Session = Depends(get_db)):
 
 
 @router.put("/{media_id}", response_model=Media)
-def update_media(media_id: int, media: Media, db: Session = Depends(get_db)):
+def update_media(media_id: int, media: Media, db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     db_media = db.query(Media).filter(Media.id == media_id).first()
     if not db_media:
         raise HTTPException(status_code=404, detail="Media item not found")
@@ -37,7 +42,9 @@ def update_media(media_id: int, media: Media, db: Session = Depends(get_db)):
 
 
 @router.delete("/{media_id}")
-def delete_media(media_id: int, db: Session = Depends(get_db)):
+def delete_media(media_id: int, db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     media = db.query(Media).filter(Media.id == media_id).first()
     if not media:
         raise HTTPException(status_code=404, detail="Media item not found")

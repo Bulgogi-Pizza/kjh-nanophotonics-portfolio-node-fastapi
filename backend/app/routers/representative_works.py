@@ -5,6 +5,7 @@ from typing import List, Optional
 
 from app.database import get_db
 from app.models import RepresentativeWork
+from app.security.security import require_admin
 from fastapi import APIRouter, Depends, HTTPException, File, UploadFile
 from sqlalchemy.orm import Session
 
@@ -19,7 +20,8 @@ UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 @router.get("/", response_model=List[RepresentativeWork])
 def get_representative_works(
     active_only: bool = True,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
 ):
     query = db.query(RepresentativeWork)
     if active_only:
@@ -28,7 +30,9 @@ def get_representative_works(
 
 
 @router.get("/{work_id}", response_model=RepresentativeWork)
-def get_representative_work(work_id: int, db: Session = Depends(get_db)):
+def get_representative_work(work_id: int, db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     work = db.query(RepresentativeWork).filter(
         RepresentativeWork.id == work_id).first()
     if not work:
@@ -39,7 +43,9 @@ def get_representative_work(work_id: int, db: Session = Depends(get_db)):
 
 @router.post("/", response_model=RepresentativeWork)
 def create_representative_work(work: RepresentativeWork,
-    db: Session = Depends(get_db)):
+    db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     work.updated_at = datetime.utcnow()
     db.add(work)
     db.commit()
@@ -51,7 +57,9 @@ def create_representative_work(work: RepresentativeWork,
 def update_representative_work(
     work_id: int,
     work_data: RepresentativeWork,
-    db: Session = Depends(get_db)):
+    db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     work = db.query(RepresentativeWork).filter(
         RepresentativeWork.id == work_id).first()
     if not work:
@@ -69,7 +77,9 @@ def update_representative_work(
 
 
 @router.delete("/{work_id}")
-def delete_representative_work(work_id: int, db: Session = Depends(get_db)):
+def delete_representative_work(work_id: int, db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     work = db.query(RepresentativeWork).filter(
         RepresentativeWork.id == work_id).first()
     if not work:
@@ -82,7 +92,9 @@ def delete_representative_work(work_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/upload-image")
-async def upload_image(file: UploadFile = File(...)):
+async def upload_image(file: UploadFile = File(...),
+    admin: bool = Depends(require_admin)
+):
     if not file.content_type.startswith('image/'):
         raise HTTPException(status_code=400, detail="File must be an image")
 

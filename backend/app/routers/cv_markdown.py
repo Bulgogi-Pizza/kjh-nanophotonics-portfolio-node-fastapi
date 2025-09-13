@@ -3,6 +3,7 @@ from typing import List, Optional
 
 from app.database import get_db
 from app.models import MarkdownCV
+from app.security.security import require_admin
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -45,7 +46,9 @@ def get_cv_document(doc_id: int, db: Session = Depends(get_db)):
 
 @router.post("/documents", response_model=MarkdownCV)
 def create_cv_document(cv_data: CVMarkdownCreate,
-    db: Session = Depends(get_db)):
+    db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     """새 마크다운 CV 문서 생성"""
     try:
         cv_doc = MarkdownCV(
@@ -70,7 +73,9 @@ def create_cv_document(cv_data: CVMarkdownCreate,
 def update_cv_document(
     doc_id: int,
     cv_data: CVMarkdownUpdate,
-    db: Session = Depends(get_db)):
+    db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     """CV 문서 수정"""
     cv_doc = db.query(MarkdownCV).filter(MarkdownCV.id == doc_id).first()
     if not cv_doc:
@@ -99,7 +104,9 @@ def update_cv_document(
 
 
 @router.post("/documents/{doc_id}/set-active")
-def set_active_cv_document(doc_id: int, db: Session = Depends(get_db)):
+def set_active_cv_document(doc_id: int, db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     """CV 문서를 활성화 (다른 모든 문서는 비활성화)"""
     try:
         # 모든 문서를 비활성화
@@ -124,7 +131,9 @@ def set_active_cv_document(doc_id: int, db: Session = Depends(get_db)):
 
 
 @router.delete("/documents/{doc_id}")
-def delete_cv_document(doc_id: int, db: Session = Depends(get_db)):
+def delete_cv_document(doc_id: int, db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     """CV 문서 삭제"""
     cv_doc = db.query(MarkdownCV).filter(MarkdownCV.id == doc_id).first()
     if not cv_doc:

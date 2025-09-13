@@ -146,7 +146,9 @@ const PublicationsTab = () => {
   const fetchPublications = async () => {
     setLoading(true);
     try {
-      const res = await fetch(API_ENDPOINT);
+      const res = await fetch(API_ENDPOINT, {
+        credentials: "include",
+      });
       if (!res.ok) {
         throw new Error('Failed to fetch publications');
       }
@@ -174,6 +176,7 @@ const PublicationsTab = () => {
         method,
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(publicationData),
+        credentials: "include",
       });
       if (!response.ok) {
         const errorData = await response.json();
@@ -191,7 +194,10 @@ const PublicationsTab = () => {
     if (window.confirm('Are you sure you want to delete this publication?')) {
       try {
         const response = await fetch(`${API_ENDPOINT}${id}`,
-            {method: 'DELETE'});
+            {
+              method: 'DELETE',
+              credentials: "include",
+            });
         if (!response.ok) {
           throw new Error('Failed to delete publication');
         }

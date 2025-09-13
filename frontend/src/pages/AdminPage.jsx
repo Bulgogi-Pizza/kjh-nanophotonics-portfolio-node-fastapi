@@ -17,41 +17,112 @@ function AdminPage() {
   const [activeTab, setActiveTab] = useState('representative-works');
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  // 인증 상태
+  const [authed, setAuthed] = useState(false);
+  const [loadingAuth, setLoadingAuth] = useState(true);
+  const [loginForm, setLoginForm] = useState({username: "", password: ""});
 
+  // 공통 fetch 헬퍼 (쿠키 포함 + 401 처리)
+  const fetchJSON = async (url, opts = {}) => {
+    const res = await fetch(url, {credentials: 'include', ...opts});
+    if (res.status === 401) {
+      setAuthed(false);
+      throw new Error('Unauthorized');
+    }
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+    return res.json();
+  };
+
+  // 데이터를 전부 다시 불러오는 함수
   const loadData = async () => {
+    setLoading(true);
     try {
-      const [worksRes, imagesRes, areasRes, cvRes, highlightsRes, coversRes] = await Promise.all(
+      const [works, images, areas, cvDocs, highlights, covers] = await Promise.all(
           [
-            fetch('/api/representative-works/?active_only=false'),
-            fetch('/api/representative-works/gallery/?active_only=false'),
-            fetch('/api/research-areas/?active_only=false'),
-            fetch('/api/cv-markdown/documents'),
-            fetch('/api/research-highlights/?active_only=false'),
-            fetch('/api/cover-arts/?active_only=false'),
+            fetchJSON('/api/representative-works/?active_only=false'),
+            fetchJSON('/api/representative-works/gallery/?active_only=false'),
+            fetchJSON('/api/research-areas/?active_only=false'),
+            fetchJSON('/api/cv-markdown/documents'),
+            fetchJSON('/api/research-highlights/?active_only=false'),
+            fetchJSON('/api/cover-arts/?active_only=false'),
           ]);
-
-      const works = await worksRes.json();
-      const images = imagesRes.ok ? await imagesRes.json() : [];
-      const areas = areasRes.ok ? await areasRes.json() : [];
-      const cvDocs = cvRes.ok ? await cvRes.json() : [];
-      const highlights = highlightsRes.ok ? await highlightsRes.json() : [];
-      const covers = coversRes.ok ? await coversRes.json() : [];
-
       setRepresentativeWorks(works);
       setGalleryImages(images);
       setResearchAreas(areas);
       setCvDocuments(cvDocs);
       setResearchHighlights(highlights);
       setCoverArts(covers);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error loading ', error);
+    } catch (e) {
+      console.error('Error loading', e);
+    } finally {
       setLoading(false);
     }
   };
+
+  // 세션 확인
+  useEffect(() => {
+    fetch("/api/auth/me", {credentials: "include"})
+    .then(r => r.json())
+    .then(d => setAuthed(!!d.admin))
+    .finally(() => setLoadingAuth(false));
+  }, []);
+
+  // 로그인되면 데이터 로드
+  useEffect(() => {
+    if (!authed) {
+      return;
+    }
+    loadData();
+  }, [authed]);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      credentials: "include",
+      body: JSON.stringify(loginForm),
+    });
+    if (res.ok) {
+      setAuthed(true);
+    } else {
+      alert("Login failed");
+    }
+  };
+
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", {method: "POST", credentials: "include"});
+    setAuthed(false);
+  };
+
+  if (loadingAuth) {
+    return null;
+  }
+
+  if (!authed) {
+    return (
+        <div className="min-h-screen pt-16 flex items-center justify-center">
+          <form onSubmit={handleLogin}
+                className="w-80 space-y-3 border p-6 rounded bg-white">
+            <h2 className="text-xl font-bold mb-2">Admin Login</h2>
+            <input className="border p-2 w-full" placeholder="Username"
+                   value={loginForm.username}
+                   onChange={e => setLoginForm(
+                       {...loginForm, username: e.target.value})}/>
+            <input className="border p-2 w-full" placeholder="Password"
+                   type="password"
+                   value={loginForm.password}
+                   onChange={e => setLoginForm(
+                       {...loginForm, password: e.target.value})}/>
+            <button
+                className="w-full bg-blue-600 text-white py-2 rounded">Login
+            </button>
+          </form>
+        </div>
+    );
+  }
 
   if (loading) {
     return (
@@ -67,21 +138,22 @@ function AdminPage() {
         </div>
     );
   }
-
   return (
       <div className="min-h-screen pt-16 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-6 py-12">
           {/* 헤더 */}
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-              Admin Panel
-            </h1>
-            <Link
-                to="/"
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Back to Site
-            </Link>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Admin
+              Panel</h1>
+            <div className="flex gap-2">
+              <Link to="/"
+                    className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Back
+                to Site</Link>
+              <button onClick={handleLogout}
+                      className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                Logout
+              </button>
+            </div>
           </div>
 
           {/* 탭 네비게이션 */}
@@ -138,23 +210,36 @@ function AdminPage() {
 
           {/* 탭 콘텐츠 */}
           {activeTab === 'representative-works' && (
-              <RepresentativeWorksTab works={representativeWorks}
-                                      onUpdate={loadData}/>
+              <RepresentativeWorksTab
+                  works={representativeWorks}
+                  onUpdate={loadData}
+              />
           )}
 
-          {activeTab === 'publications' && <PublicationsTab/>}
+          {activeTab === 'publications' &&
+              <PublicationsTab
+              />
+          }
 
           {activeTab === 'research' && (
-              <ResearchAreasTab areas={researchAreas} onUpdate={loadData}/>
+              <ResearchAreasTab
+                  areas={researchAreas}
+                  onUpdate={loadData}
+              />
           )}
 
           {activeTab === 'research-highlights' && (
-              <ResearchHighlightsTab items={researchHighlights}
-                                     onUpdate={loadData}/>
+              <ResearchHighlightsTab
+                  items={researchHighlights}
+                  onUpdate={loadData}
+              />
           )}
 
           {activeTab === 'cover-arts' && (
-              <CoverArtsTab items={coverArts} onUpdate={loadData}/>
+              <CoverArtsTab
+                  items={coverArts}
+                  onUpdate={loadData}
+              />
           )}
 
         </div>

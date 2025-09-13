@@ -1,5 +1,6 @@
 from typing import List
 
+from app.security.security import require_admin
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -15,7 +16,8 @@ def get_conferences(db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=Conference)
-def create_conference(conference: Conference, db: Session = Depends(get_db)):
+def create_conference(conference: Conference, db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)):
     db.add(conference)
     db.commit()
     db.refresh(conference)
@@ -24,7 +26,9 @@ def create_conference(conference: Conference, db: Session = Depends(get_db)):
 
 @router.put("/{conference_id}", response_model=Conference)
 def update_conference(conference_id: int, conference: Conference,
-    db: Session = Depends(get_db)):
+    db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     db_conference = db.query(Conference).filter(
         Conference.id == conference_id).first()
     if not db_conference:
@@ -39,7 +43,9 @@ def update_conference(conference_id: int, conference: Conference,
 
 
 @router.delete("/{conference_id}")
-def delete_conference(conference_id: int, db: Session = Depends(get_db)):
+def delete_conference(conference_id: int, db: Session = Depends(get_db),
+    admin: bool = Depends(require_admin)
+):
     conference = db.query(Conference).filter(
         Conference.id == conference_id).first()
     if not conference:

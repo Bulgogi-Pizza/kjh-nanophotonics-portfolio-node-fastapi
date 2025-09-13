@@ -25,6 +25,7 @@ export default function CoverArtsTab({items = [], onUpdate}) {
     const res = await fetch("/api/cover-arts/upload-image", {
       method: "POST",
       body: fd,
+      credentials: "include",
     });
     if (!res.ok) {
       setUploading(false);
@@ -45,6 +46,7 @@ export default function CoverArtsTab({items = [], onUpdate}) {
     await fetch("/api/cover-arts/", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
+      credentials: "include",
       body: JSON.stringify({
         image_path: form.image_path,
         link: form.link || null,
@@ -78,6 +80,7 @@ export default function CoverArtsTab({items = [], onUpdate}) {
       method: "PUT",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(patch),
+      credentials: "include",
     });
     onUpdate && onUpdate();
   };
@@ -86,7 +89,10 @@ export default function CoverArtsTab({items = [], onUpdate}) {
     if (!window.confirm("Delete this item?")) {
       return;
     }
-    await fetch(`/api/cover-arts/${id}`, {method: "DELETE"});
+    await fetch(`/api/cover-arts/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
     onUpdate && onUpdate();
   };
 

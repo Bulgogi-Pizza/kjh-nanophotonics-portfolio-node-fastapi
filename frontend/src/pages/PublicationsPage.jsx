@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ResearchHighlightsSection
   from "./publications/ResearchHighlightsSection.jsx";
-import CoverArtsSection from "./publications/CoverArtsSection.jsx";
 
 function PublicationsPage() {
   const [publications, setPublications] = useState([]);
@@ -89,9 +88,6 @@ function PublicationsPage() {
 
           {/* Research Highlights */}
           <ResearchHighlightsSection/>
-
-          {/* Cover Arts */}
-          <CoverArtsSection/>
 
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Full

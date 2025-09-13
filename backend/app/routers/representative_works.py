@@ -29,8 +29,7 @@ def get_representative_works(
 
 
 @router.get("/{work_id}", response_model=RepresentativeWork)
-def get_representative_work(work_id: int, db: Session = Depends(get_db),
-    admin: bool = Depends(require_admin)
+def get_representative_work(work_id: int, db: Session = Depends(get_db)
 ):
     work = db.query(RepresentativeWork).filter(
         RepresentativeWork.id == work_id).first()

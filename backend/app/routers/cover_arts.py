@@ -19,8 +19,7 @@ UPLOAD_DIR_CA.mkdir(parents=True, exist_ok=True)
 @router.get("/", response_model=List[CoverArt])
 def list_cover_arts(
     active_only: bool = Query(False, description="True면 is_active 항목만"),
-    db: Session = Depends(get_db),
-    admin: bool = Depends(require_admin)
+    db: Session = Depends(get_db)
 ):
     query = db.query(CoverArt)
     if active_only:

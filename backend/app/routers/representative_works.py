@@ -20,8 +20,7 @@ UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 @router.get("/", response_model=List[RepresentativeWork])
 def get_representative_works(
     active_only: bool = True,
-    db: Session = Depends(get_db),
-    admin: bool = Depends(require_admin)
+    db: Session = Depends(get_db)
 ):
     query = db.query(RepresentativeWork)
     if active_only:

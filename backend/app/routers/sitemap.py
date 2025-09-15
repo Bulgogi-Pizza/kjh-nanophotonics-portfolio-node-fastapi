@@ -4,7 +4,9 @@ from fastapi import APIRouter, Depends
 from fastapi.responses import Response
 from sqlalchemy.orm import Session
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/api/search"
+)
 
 
 @router.get("/sitemap.xml")

@@ -38,7 +38,7 @@ function Navbar() {
       <nav
           className="fixed top-0 w-full z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
         <div className="relative container mx-auto px-8">
-          <div className="flex justify-between items-center h-16 xl:h-20">
+          <div className="flex justify-between items-center h-16">
             {/* 로고 */}
             <NavLink
                 to="/"

@@ -21,8 +21,9 @@ const normalizeLink = (href = "") => {
   }
   return t;
 };
-const isExternal = (href = "") => /^https?:\/\//i.test(normalizeLink(href))
-    || /^mailto:|^tel:/i.test(href.trim());
+const isExternal = (href = "") =>
+    /^https?:\/\//i.test(normalizeLink(href)) || /^mailto:|^tel:/i.test(
+        href.trim());
 
 function useCardLink() {
   const nav = useNavigate();
@@ -53,7 +54,8 @@ export default function CoverArtsSection() {
 
   useEffect(() => {
     fetch("/api/cover-arts/?active_only=1")
-    .then(r => r.json()).then(d => {
+    .then(r => r.json())
+    .then(d => {
       setItems(d || []);
       setLoading(false);
     })
@@ -68,15 +70,19 @@ export default function CoverArtsSection() {
       <section className="py-16 sm:py-20 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Cover
-              Arts</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+              Cover Arts
+            </h2>
           </div>
 
           <HorizontalGallery
               items={items}
               ariaLabel="Cover Arts"
-              // 모바일 작게 보이도록
-              itemClassName="w-40 sm:w-52 md:w-64"
+              itemClassName="
+            w-[calc((100vw-80px-72px)/3)]
+            md:w-[calc((100vw-80px-96px)/4)]
+            lg:w-[calc((100vw-80px-120px)/5)]
+          "
               autoScroll
               autoScrollSpeed={16}
               pauseOnHover
@@ -87,17 +93,21 @@ export default function CoverArtsSection() {
                       tabIndex={item.link ? 0 : -1}
                       onClick={() => item.link && openLink(item.link)}
                       onKeyDown={(e) => item.link && keyActivate(e, item.link)}
-                      className={`block bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden shadow transition ${item.link
-                          ? "hover:shadow-md cursor-pointer"
-                          : "cursor-default"}`}
+                      className={`block bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden shadow transition ${
+                          item.link ? "hover:shadow-md cursor-pointer"
+                              : "cursor-default"
+                      }`}
                   >
-                    <img
-                        src={item.image_path}
-                        alt={item.alt_text || item.description
-                            || `${item.journal} cover art`}
-                        className="w-full h-56 sm:h-64 md:h-72 object-cover"
-                        loading="lazy"
-                    />
+                    {/* 비율 고정: 3:4 */}
+                    <div style={{aspectRatio: "3 / 4"}}>
+                      <img
+                          src={item.image_path}
+                          alt={item.alt_text || item.description
+                              || `${item.journal} cover art`}
+                          className="w-full h-full object-cover block"
+                          loading="lazy"
+                      />
+                    </div>
                   </div>
               )}
           />

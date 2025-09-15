@@ -2,8 +2,9 @@ import React, {useEffect, useState} from "react";
 import HorizontalGallery from "../../components/HorizontalGallery";
 import {useNavigate} from "react-router-dom";
 
-const isExternal = (href = "") => /^https?:\/\//i.test(href) || href.startsWith(
-    "mailto:") || href.startsWith("tel:");
+const isExternal = (href = "") =>
+    /^https?:\/\//i.test(href) || href.startsWith("mailto:") || href.startsWith(
+        "tel:");
 
 function useCardLink() {
   const nav = useNavigate();
@@ -33,8 +34,9 @@ export default function ResearchHighlightsSection() {
 
   useEffect(() => {
     fetch("/api/research-highlights/?active_only=1")
-    .then(r => r.json()).then(d => {
-      setItems(d);
+    .then(r => r.json())
+    .then(d => {
+      setItems(d || []);
       setLoading(false);
     })
     .catch(() => setLoading(false));
@@ -47,15 +49,18 @@ export default function ResearchHighlightsSection() {
   return (
       <section className="mb-12 sm:mb-16">
         <div className="text-center mb-6 sm:mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Research
-            Highlights</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+            Research Highlights
+          </h2>
         </div>
 
         <HorizontalGallery
             items={items}
             ariaLabel="Research Highlights"
-            // 작게: w-40 / 중간: w-52 / 큰화면: w-60
-            itemClassName="w-40 sm:w-52 md:w-60"
+            itemClassName="
+          w-[calc((100vw-80px-48px)/3)]
+          lg:w-[calc((100vw-80px-72px)/4)]
+        "
             autoScroll
             autoScrollSpeed={16}
             pauseOnHover
@@ -66,19 +71,25 @@ export default function ResearchHighlightsSection() {
                     tabIndex={item.link ? 0 : -1}
                     onClick={() => item.link && openLink(item.link)}
                     onKeyDown={(e) => item.link && keyActivate(e, item.link)}
-                    className={`block bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow transition ${item.link
-                        ? "hover:shadow-md cursor-pointer" : "cursor-default"}`}
+                    className={`block bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow transition ${
+                        item.link ? "hover:shadow-md cursor-pointer"
+                            : "cursor-default"
+                    }`}
                 >
-                  <img
-                      src={item.image_path}
-                      alt={item.alt_text || item.description
-                          || "Research highlight"}
-                      className="w-full h-40 sm:h-52 md:h-60 object-cover"
-                      loading="lazy"
-                  />
+                  {/* 비율 고정: 20:13 */}
+                  <div style={{aspectRatio: "20 / 13"}}>
+                    <img
+                        src={item.image_path}
+                        alt={item.alt_text || item.description
+                            || "Research highlight"}
+                        className="w-full h-full object-cover block"
+                        loading="lazy"
+                    />
+                  </div>
+
                   {item.description && (
                       <div
-                          className="p-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300 min-h-[44px] sm:min-h-[56px] safe-wrap">
+                          className="p-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300 min-h-[44px] sm:min-h-[56px]">
                         {item.description}
                       </div>
                   )}

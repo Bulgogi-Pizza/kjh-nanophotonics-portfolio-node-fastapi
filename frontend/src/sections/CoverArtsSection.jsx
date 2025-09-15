@@ -79,9 +79,9 @@ export default function CoverArtsSection() {
               items={items}
               ariaLabel="Cover Arts"
               itemClassName="
-            w-[calc((100vw-80px-72px)/2)]
-            sm:w-[calc((100vw-80px-96px)/3)]
-            md:w-[calc((100vw-80px-120px)/4)]
+            w-[calc((100vw-80px-72px)/3)]
+            sm:w-[calc((100vw-80px-96px)/4)]
+            md:w-[calc((100vw-80px-120px)/5)]
           "
               autoScroll
               autoScrollSpeed={16}

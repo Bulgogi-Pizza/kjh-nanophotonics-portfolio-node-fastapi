@@ -58,8 +58,8 @@ export default function ResearchHighlightsSection() {
             items={items}
             ariaLabel="Research Highlights"
             itemClassName="
-          w-[calc((100vw-80px-48px)/3)]
-          lg:w-[calc((100vw-80px-72px)/4)]
+          w-[calc((100vw-80px-48px)/2)]
+          lg:w-[calc((100vw-80px-72px)/3)]
         "
             autoScroll
             autoScrollSpeed={16}

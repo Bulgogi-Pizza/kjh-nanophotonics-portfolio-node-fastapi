@@ -71,23 +71,27 @@ export default function CoverArtsSection() {
         <div
             className="relative container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 max-w-[2000px]">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">Cover
-              Arts
+            <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              Cover Arts
             </h2>
           </div>
 
           <HorizontalGallery
               items={items}
               ariaLabel="Cover Arts"
-              itemClassName="
-            w-[calc((100vw-80px-72px)/3)]
-            sm:w-[calc((100vw-80px-96px)/4)]
-            md:w-[calc((100vw-80px-120px)/5)]
-          "
+              loop
+              loopStrategy="recycle"
               autoScroll
               autoScrollSpeed={16}
               pauseOnHover
-              loop
+              gapPx={16}
+              paddingX={24}
+              itemClassName="
+            w-[calc((100vw-var(--gallery-pad2x)-3*var(--gallery-gap))/4)]
+            md:w-[calc((100vw-var(--gallery-pad2x)-4*var(--gallery-gap))/5)]
+            lg:w-[calc((100vw-var(--gallery-pad2x)-5*var(--gallery-gap))/6)]
+            max-w-[360px]
+          "
               renderItem={(item) => (
                   <div
                       role={item.link ? "link" : undefined}
@@ -99,7 +103,7 @@ export default function CoverArtsSection() {
                               : "cursor-default"
                       }`}
                   >
-                    {/* 비율 고정: 3:4 */}
+                    {/* 3:4 비율 */}
                     <div style={{aspectRatio: "3 / 4"}}>
                       <img
                           src={item.image_path}

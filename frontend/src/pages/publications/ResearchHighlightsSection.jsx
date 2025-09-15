@@ -57,14 +57,23 @@ export default function ResearchHighlightsSection() {
         <HorizontalGallery
             items={items}
             ariaLabel="Research Highlights"
-            itemClassName="
-          w-[calc((100vw-80px-48px)/4)]
-          lg:w-[calc((100vw-80px-72px)/5)]
-        "
+            loop
+            loopStrategy="recycle"
             autoScroll
             autoScrollSpeed={16}
             pauseOnHover
-            loop
+            /* 갭/패딩을 변수로 내려주고, width calc에서 동일 변수 사용 */
+            gapPx={16}
+            paddingX={24}
+            /* 화면 당 개수:
+               - 기본: 3개
+               - md 이상: 4개
+               (calc에서 '아이템 수 - 1' 만큼 gap을 빼줌) */
+            itemClassName="
+          w-[calc((100vw-var(--gallery-pad2x)-2*var(--gallery-gap))/3)]
+          md:w-[calc((100vw-var(--gallery-pad2x)-4*var(--gallery-gap))/5)]
+          max-w-[420px]
+        "
             renderItem={(item) => (
                 <div
                     role={item.link ? "link" : undefined}
@@ -76,7 +85,7 @@ export default function ResearchHighlightsSection() {
                             : "cursor-default"
                     }`}
                 >
-                  {/* 비율 고정: 20:13 */}
+                  {/* 20:13 비율 */}
                   <div style={{aspectRatio: "20 / 13"}}>
                     <img
                         src={item.image_path}

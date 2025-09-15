@@ -64,8 +64,6 @@ function HeroSection() {
   if (loading) {
     return (
         <section className="relative min-h-screen flex items-center pt-16">
-          <div
-              className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-900 dark:to-blue-900/20"></div>
           <div className="relative container mx-auto px-6 lg:px-8 py-20">
             <div className="text-center">
               <div
@@ -79,7 +77,7 @@ function HeroSection() {
 
   return (
       <section
-          className="relative md:max-h-screen flex items-center pt-24">
+          className="relative sm:min-h-max flex items-center pt-24">
         <div
             className="relative container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 max-w-[2000px]">
           <div className="grid lg:grid-cols-9 gap-8 md:gap-16 items-center">

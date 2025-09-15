@@ -34,7 +34,7 @@ function ResearchSection() {
   }
 
   return (
-      <section className="py-24 bg-gray-white dark:bg-gray-900">
+      <section className="py-12 sm:py-16 bg-white dark:bg-gray-900">
         <div
             className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 max-w-[2000px]">
           {/* 섹션 제목 */}

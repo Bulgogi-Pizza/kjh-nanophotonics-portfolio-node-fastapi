@@ -11,7 +11,6 @@ function AdminPage() {
   const [representativeWorks, setRepresentativeWorks] = useState([]);
   const [galleryImages, setGalleryImages] = useState([]);
   const [researchAreas, setResearchAreas] = useState([]);
-  const [cvDocuments, setCvDocuments] = useState([]);
   const [researchHighlights, setResearchHighlights] = useState([]);
   const [coverArts, setCoverArts] = useState([]);
   const [activeTab, setActiveTab] = useState('representative-works');
@@ -39,19 +38,17 @@ function AdminPage() {
   const loadData = async () => {
     setLoading(true);
     try {
-      const [works, images, areas, cvDocs, highlights, covers] = await Promise.all(
+      const [works, images, areas, highlights, covers] = await Promise.all(
           [
             fetchJSON('/api/representative-works/?active_only=false'),
             fetchJSON('/api/representative-works/gallery/?active_only=false'),
             fetchJSON('/api/research-areas/?active_only=false'),
-            fetchJSON('/api/cv-markdown/documents'),
             fetchJSON('/api/research-highlights/?active_only=false'),
             fetchJSON('/api/cover-arts/?active_only=false'),
           ]);
       setRepresentativeWorks(works);
       setGalleryImages(images);
       setResearchAreas(areas);
-      setCvDocuments(cvDocs);
       setResearchHighlights(highlights);
       setCoverArts(covers);
     } catch (e) {

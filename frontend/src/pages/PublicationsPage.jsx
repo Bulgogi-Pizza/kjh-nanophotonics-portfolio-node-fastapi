@@ -75,7 +75,7 @@ function PublicationsPage() {
   return (
       <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
         <div
-            className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 py-10 sm:py-12 max-w-[2000px]">
+            className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 py-10 sm:py-12 max-w-[1600px]">
           {/* 헤더 */}
           <div className="mb-6 sm:mb-8 text-center">
             <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">

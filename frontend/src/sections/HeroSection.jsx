@@ -79,7 +79,7 @@ function HeroSection() {
 
   return (
       <section
-          className="relative min-h-[70vh] md:max-h-screen flex items-center pt-16">
+          className="relative md:max-h-screen flex items-center pt-16">
         <div
             className="relative container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 py-10 sm:py-12 max-w-[2000px]">
           <div className="grid lg:grid-cols-9 gap-8 md:gap-16 items-center">

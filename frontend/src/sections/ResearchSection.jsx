@@ -34,8 +34,9 @@ function ResearchSection() {
   }
 
   return (
-      <section className="py-24 bg-gray-50 dark:bg-gray-800">
-        <div className="container mx-auto px-0 lg:px-8">
+      <section className="py-24 bg-gray-white dark:bg-gray-900">
+        <div
+            className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 py-10 sm:py-12 max-w-[2000px]">
           {/* 섹션 제목 */}
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">Research</h2>
@@ -56,7 +57,7 @@ function ResearchSection() {
                             `/research/${area.slug}`);
                       }
                     }}
-                    className="group bg-gray-50 dark:bg-gray-900 rounded-2xl p-4 sm:p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="group bg-white dark:bg-gray-900 rounded-2xl p-4 sm:p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   {/* 아이콘 */}
                   {area.icon_path && (

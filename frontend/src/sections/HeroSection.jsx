@@ -79,9 +79,9 @@ function HeroSection() {
 
   return (
       <section
-          className="relative min-h-[70vh] md:min-h-screen flex items-center pt-16">
+          className="relative min-h-[70vh] md:max-h-screen flex items-center pt-16">
         <div
-            className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+            className="relative container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 py-10 sm:py-12 max-w-[2000px]">
           <div className="grid lg:grid-cols-9 gap-8 md:gap-16 items-center">
 
             {/* 좌측: 인삿말 섹션 */}
@@ -106,7 +106,7 @@ function HeroSection() {
             <div className="relative lg:col-span-5">
               {representativeWorks.length > 0 && currentWork && (
                   <div
-                      className="relative aspect-[4/3] rounded-xl md:rounded-2xl overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800">
+                      className="relative aspect-[4/3] rounded-xl md:rounded-2xl overflow-hidden shadow-2xl  bg-gray-100 dark:bg-gray-800">
                     {/* 이미지 슬라이더 */}
                     {representativeWorks.map((work, index) => (
                         <div

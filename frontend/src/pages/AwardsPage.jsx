@@ -69,8 +69,8 @@ function AwardsPage() {
 
   return (
       <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-        <div className="container mx-auto px-8 py-12 max-w-7xl">
-
+        <div
+            className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 py-10 sm:py-12 max-w-[2000px]">
           {/* 페이지 헤더 */}
           <div className="mb-8 text-center">
             <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">Awards</h1>

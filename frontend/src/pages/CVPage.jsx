@@ -255,7 +255,7 @@ const ProfileSection = ({profile}) => (
       <div
           className="flex flex-col lg:flex-row gap-6 md:gap-10 items-center lg:items-start">
         <div
-            className="flex-shrink-0 w-40 h-52 sm:w-56 sm:h-72 md:w-64 md:h-80 shadow-2xl rounded-lg overflow-hidden ring-1 ring-gray-200 dark:ring-gray-700">
+            className="flex-shrink-0 w-40 h-52 sm:w-56 sm:h-72 md:w-64 md:h-80 lg:w-[280px] lg:h-[364px] shadow-2xl rounded-lg overflow-hidden ring-1 ring-gray-200 dark:ring-gray-700">
           <img src="/images/JoohoonKim.jpg" alt={profile.name}
                className="w-full h-full object-cover"/>
         </div>
@@ -409,9 +409,10 @@ const ServiceItem = ({service}) => {
 // --- 메인 페이지 컴포넌트 ---
 function CVPage() {
   return (
-      <div className="bg-white dark:bg-gray-900 min-h-screen font-noto">
+      <div
+          className="min-h-screen pt-16 bg-white dark:bg-gray-900 min-h-screen font-noto">
         <div
-            className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl py-12 sm:py-16 lg:py-20">
+            className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-60 py-10 sm:py-12 max-w-[2000px]">
           <ProfileSection profile={cvData.profile}/>
           <main className="space-y-16">
             <CVSection title="Education">

@@ -27,7 +27,7 @@ function Navbar() {
   ];
 
   const getLinkClasses = ({isActive}) => `
-    px-4 py-2 text-md font-medium transition-all duration-200
+    px-4 py-2 text-md xl:text-lg font-medium transition-all duration-200
     ${isActive
       ? 'text-blue-600 dark:text-blue-400'
       : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
@@ -37,12 +37,12 @@ function Navbar() {
   return (
       <nav
           className="fixed top-0 w-full z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
-        <div className="container mx-auto px-8">
-          <div className="flex justify-between items-center h-16">
+        <div className="relative container mx-auto px-8">
+          <div className="flex justify-between items-center h-16 xl:h-20">
             {/* 로고 */}
             <NavLink
                 to="/"
-                className="text-xl font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="text-xl xl:text-2xl font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               Joohoon Kim
             </NavLink>
@@ -74,7 +74,7 @@ function Navbar() {
                                   <NavLink
                                       key={area.slug}
                                       to={`/research/${area.slug}`}
-                                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                                      className="block px-4 py-2 text-sm xl:text-base text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                                   >
                                     {area.title}
                                   </NavLink>

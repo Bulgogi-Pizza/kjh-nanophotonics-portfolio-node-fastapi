@@ -40,9 +40,6 @@ function PublicationsPage() {
     if (filters.year) {
       queryParams.append('year', filters.year);
     }
-    if (filters.category) {
-      queryParams.append('category', filters.category);
-    }
 
     fetch(`/api/publications/?${queryParams.toString()}`)
     .then(res => res.json())

@@ -48,8 +48,7 @@ function HorizontalGallery({
       return items.map(
           (it, idx) => ({it, key: it.id ?? idx}));
     }
-    const doubled = [...items, ...items];
-    return doubled.map((it, idx) => ({
+    return items.map((it, idx) => ({
       it,
       key: `${it.id ?? idx}-${idx < items.length ? "a" : "b"}`,
     }));

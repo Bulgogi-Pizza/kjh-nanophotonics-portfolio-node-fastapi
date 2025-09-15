@@ -79,9 +79,9 @@ function HeroSection() {
 
   return (
       <section
-          className="relative md:max-h-screen flex items-center pt-16">
+          className="relative md:max-h-screen flex items-center pt-24">
         <div
-            className="relative container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 py-10 sm:py-12 max-w-[2000px]">
+            className="relative container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 max-w-[2000px]">
           <div className="grid lg:grid-cols-9 gap-8 md:gap-16 items-center">
 
             {/* 좌측: 인삿말 섹션 */}

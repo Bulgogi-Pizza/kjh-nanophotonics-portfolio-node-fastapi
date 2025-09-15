@@ -35,7 +35,7 @@ function PublicationsSection() {
   return (
       <section className="py-24 bg-white dark:bg-gray-900">
         <div
-            className="relative container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 py-10 sm:py-12 max-w-[2000px]">
+            className="relative container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 max-w-[2000px]">
           {/* 섹션 헤더 */}
           <div className="relative mb-16">
             <div className="text-center">

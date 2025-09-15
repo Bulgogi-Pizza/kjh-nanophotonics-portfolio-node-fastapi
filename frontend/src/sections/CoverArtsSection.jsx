@@ -69,7 +69,7 @@ export default function CoverArtsSection() {
   return (
       <section className="py-16 sm:py-20 bg-white dark:bg-gray-900">
         <div
-            className="relative container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 py-10 sm:py-12 max-w-[2000px]">
+            className="relative container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 max-w-[2000px]">
           <div className="text-center mb-8 sm:mb-12">
             <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">Cover
               Arts

@@ -60,10 +60,10 @@ export default function ResearchHighlightsSection() {
             loop
             loopStrategy="recycle"
             autoScroll
-            autoScrollSpeed={16}
+            autoScrollSpeed={1}
             pauseOnHover
-            gapPx={16}
-            paddingX={24}
+            gapPx={0}
+            paddingX={0}
             itemClassName="
           w-[calc((100vw-var(--gallery-pad2x)-2*var(--gallery-gap))/3)]
           md:w-[calc((100vw-var(--gallery-pad2x)-3*var(--gallery-gap))/4)]

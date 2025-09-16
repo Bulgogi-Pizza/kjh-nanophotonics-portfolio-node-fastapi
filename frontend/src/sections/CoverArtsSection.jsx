@@ -82,10 +82,10 @@ export default function CoverArtsSection() {
               loop
               loopStrategy="recycle"
               autoScroll
-              autoScrollSpeed={16}
+              autoScrollSpeed={1}
               pauseOnHover
-              gapPx={16}
-              paddingX={24}
+              gapPx={0}
+              paddingX={0}
               itemClassName="
             w-[calc((100vw-var(--gallery-pad2x)-3*var(--gallery-gap))/4)]
             md:w-[calc((100vw-var(--gallery-pad2x)-4*var(--gallery-gap))/5)]

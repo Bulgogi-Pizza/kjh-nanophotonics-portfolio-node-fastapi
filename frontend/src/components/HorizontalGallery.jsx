@@ -17,7 +17,7 @@ const HorizontalGallery = ({
   const animationRef = useRef();
 
   // 무한 스크롤을 위해 아이템을 3배로 복제
-  const extendedItems = [...items, ...items];
+  const extendedItems = [...items, ...items, ...items];
 
   // 자동 스크롤 애니메이션
   const animate = useCallback(() => {

@@ -84,11 +84,6 @@ def get_publication(publication_id: int, db: Session = Depends(get_db)):
 def create_publication(publication: Publication, db: Session = Depends(get_db),
     admin: bool = Depends(require_admin)
 ):
-    # number가 없으면 자동 생성
-    if publication.number is None:
-        max_pub = db.query(Publication).order_by(Publication.number.desc()).first()
-        publication.number = (max_pub.number + 1) if (max_pub and max_pub.number) else 1
-    
     publication.updated_at = datetime.utcnow()
     db.add(publication)
     db.commit()

@@ -50,7 +50,7 @@ class Publication(SQLModel, table=True):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     id: Optional[int] = Field(default=None, primary_key=True)
-    number: int  # 논문 번호 (내림차순)
+    number: Optional[int] = None  # 논문 번호 (내림차순)
     title: str
     authors: str  # 전체 저자 리스트
     journal: str
